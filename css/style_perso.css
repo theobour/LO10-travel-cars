@@ -1,0 +1,963 @@
+
+details {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: .5em .5em 0;
+}
+
+summary {
+    font-weight: bold;
+    margin: -.5em -.5em 0;
+    padding: .5em;
+}
+
+details[open] {
+    padding: .5em;
+}
+
+details[open] summary {
+    border-bottom: 1px solid #aaa;
+    margin-bottom: .5em;
+}
+
+body, html {
+    
+  width: 100%;
+  margin : 0px;
+  padding: 0px;
+  color: black;
+  border: 0px;
+  font-family: 'Noto Sans TC', sans-serif;
+  background-color: #D9BFEA;
+  text-align: center;
+}
+
+.container {
+  
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+ 
+}
+                   
+#body_index {
+  background-image: url(../images/img1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+#menu {
+    position: fixed;
+    width: 100%;
+    padding: 20px;
+    background-color: #2B0A40;
+    color: white;
+    margin: 0px;
+    z-index: 1000;
+}
+
+#menu a{
+    color: white;
+}
+
+#menu a:hover{
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#footer_index {
+    width: 100%;
+    padding: 10px;
+    background-color: #2B0A40;
+    color: white;
+    margin: 0px;
+    z-index: 1000;
+    text-align: center;
+    font-size: 12px;
+}
+
+#footer_index a{
+    color: white;
+}
+
+#footer_index a:hover{
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#partie_connexion {
+    background-color: #D9BFEA;
+    padding: 40px;
+    color: #09000E;
+    margin: 0px;
+    opacity: 0.95;
+    }
+    
+#partie_connexion h2{
+    padding: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0px;
+    }
+    
+    #partie_connexion p{
+    padding: 30px;
+    padding-bottom: 50px;
+    text-align: center;
+    margin: 0px;
+    color: #09000E;
+    }
+    
+    #partie_connexion a{
+    background-color: #8A61A4;
+    padding: 15px;
+    color: #09000E;
+    text-align: center;
+    margin: 0px;
+    opacity: 1;
+    }
+    
+    #partie_connexion a:hover{
+    background-color: #562A72;
+    color: #D9BFEA;
+    }
+    
+#partie_inscription {
+    background-color: #4B0731;
+    padding: 40px;
+    color: white;
+    margin: 0px;
+    opacity: 0.95;
+    }
+    
+#partie_inscription h2{
+    padding: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0px;
+    }
+    
+    #partie_inscription p{
+    padding: 30px;
+    padding-bottom: 50px;
+    text-align: center;
+    margin: 0px;
+    color: white;
+    }
+    
+    #partie_inscription a{
+    background-color: #862D63;
+    padding: 15px;
+    text-align: center;
+    color: #F1C2DF;
+    margin: 0px;
+    opacity: 1;
+    }
+    
+    #partie_inscription a:hover{
+    background-color: #C06EA0;
+    color: #4B0731;
+    }
+    
+#partie_info {
+    padding: 40px;
+    margin: 0px;
+    }
+    
+#partie_info h2{
+    padding: 30px;
+    padding-top: 350px;
+    padding-bottom: 100px;
+    color: #D9BFEA;
+    margin: 0px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    font-family: 'Noto Sans TC', sans-serif;
+    }
+    
+#partie_info p{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 250px;
+    color: #D9BFEA;
+    margin: 0px;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Noto Sans TC', sans-serif;
+    }
+    
+#footer_connexion {
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    padding: 10px;
+    background-color: #2B0A40;
+    color: white;
+    margin: 0px;
+    z-index: 1000;
+    text-align: center;
+    font-size: 12px;
+}
+
+#footer_connexion a{
+    color: white;
+}
+
+#footer_connexion a:hover{
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#body_connection {
+  background-image: url(../images/img3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  height: 100%;
+  font-family: 'Noto Sans TC', sans-serif;
+  
+}
+
+#body_connection form{
+    padding: 50px;
+    width: 30%;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #09000E;
+    background-color: #D9BFEA;
+    font-family: 'Noto Sans TC', sans-serif;
+    opacity: 0.95;
+    border-radius: 5px;
+  
+}
+
+#body_connection button{
+    background-color: #2B0A40;
+    color: #D9BFEA;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 15px;
+    font-family: 'Noto Sans TC', sans-serif;
+  
+}
+
+#body_connection form input{
+    margin-bottom: 20px;
+  
+}
+
+#body_connection form a, a:hover{
+    color: #09000E;
+  
+}
+
+#body_connection button:hover{
+    background-color: #562A72;
+  
+}
+
+#body_connection {
+  background-image: url(../images/img3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  height: 100%;
+  font-family: 'Noto Sans TC', sans-serif;
+  
+}
+
+#body_connection form{
+    padding: 50px;
+    width: 30%;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #09000E;
+    background-color: #D9BFEA;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+    opacity: 0.95;
+    border-radius: 5px;
+  
+}
+
+#body_connection button{
+    background-color: #2B0A40;
+    color: #D9BFEA;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 15px;
+    font-family: 'Noto Sans TC', sans-serif;
+  
+}
+
+#body_connection form input{
+    margin-bottom: 20px;
+  
+}
+
+#body_connection form a, a:hover,p{
+    color: #09000E;
+}
+
+#body_connection form p{
+    color: #09000E;
+}
+
+#body_connection button:hover{
+    background-color: #562A72;
+  
+}
+
+#body_inscription {
+  background-image: url(../images/img4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  height: 100%;
+  font-family: 'Noto Sans TC', sans-serif;
+  
+}
+
+#body_inscription form{
+    padding: 50px;
+    width: 30%;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #09000E;
+    background-color: #D9BFEA;
+    font-family: 'Noto Sans TC', sans-serif;
+    opacity: 0.95;
+    border-radius: 5px;
+    font-size: 13px;
+  
+}
+
+#body_inscription button{
+    background-color: #2B0A40;
+    color: #D9BFEA;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 15px;
+    font-family: 'Noto Sans TC', sans-serif;
+  
+}
+
+#body_inscription form input{
+    margin-bottom: 20px;
+  
+}
+
+#body_inscription form a, a:hover{
+    color: #09000E;
+  
+}
+
+#body_inscription button:hover{
+    background-color: #562A72;
+  
+}
+
+#message_alerte {
+    color: #6D071A;
+}
+
+#menu_site {
+    width: 100%;
+    padding: 20px;
+    background-color: #2B0A40;
+    color: white;
+    margin: 0px;
+}
+
+#menu_site a{
+    color: white;
+}
+
+#menu_site a:hover{
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#titre_accueil {
+    font-weight: bold;
+    color: #2B0A40;
+    padding: 30px;
+    margin-top: 70px;
+}
+
+#texte_accueil {
+  background-image: url(../images/img10.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  padding: 40px;
+  color: white;
+  font-size: 20px;
+  font-style: italic;
+}
+
+#texte_accueil p{
+  color: white;
+}
+
+#partie_description_accueil a{
+  color: #2B0A40;
+  padding: 30px;
+  font-weight: bold;
+}
+
+#partie_description_accueil a:hover{
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+#partie_description_accueil {
+  color: #2B0A40;
+  padding: 40px;
+}
+
+#partie_description_accueil p{
+  color: #2B0A40;
+}
+
+    #texte_accueil a{
+    background-color: #8A61A4;
+    padding: 15px;
+    color: #09000E;
+    text-align: center;
+    margin: 0px;
+    margin-top: 20px;
+    opacity: 1;
+    font-style: normal;
+    }
+    
+    #texte_accueil a:hover{
+    background-color: #562A72;
+    color: #D9BFEA;
+    }
+    
+#partie_reservation {
+    background-color: #862D63;
+    padding: 40px;
+    color: #11000A;
+    margin: 0px;
+    opacity: 0.95;
+    }
+    
+#partie_reservation h2{
+    padding: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0px;
+    }
+    
+    #partie_reservation p{
+    padding: 30px;
+    padding-bottom: 50px;
+    text-align: center;
+    margin: 0px;
+    }
+    
+    #partie_reservation a{
+    background-color: #8A61A4;
+    padding: 15px;
+    color: #09000E;
+    text-align: center;
+    margin: 0px;
+    opacity: 1;
+    }
+    
+    #partie_reservation a:hover{
+    background-color: #562A72;
+    color: #D9BFEA;
+    }
+    
+#partie_location{
+    background-color: #4B0731;
+    padding: 40px;
+    color: #F1C2DF;
+    margin: 0px;
+    opacity: 0.95;
+    }
+    
+#partie_location h2{
+    padding: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0px;
+    }
+    
+    #partie_location p{
+    padding: 30px;
+    padding-bottom: 50px;
+    text-align: center;
+    margin: 0px;
+    }
+    
+    #partie_location a{
+    background-color: #8A61A4;
+    padding: 15px;
+    color: #09000E;
+    text-align: center;
+    margin: 0px;
+    opacity: 1;
+    }
+    
+    #partie_location a:hover{
+    background-color: #562A72;
+    color: #D9BFEA;
+    }
+    
+ #partie_location input,select{
+    color: black;
+    }
+    
+#partie_location button{
+    background-color: #862D63;
+    color: #C06EA0;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 15px;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+#partie_location button:hover{
+    background-color: #C06EA0;
+    color: #4B0731;
+}
+
+#partie_reservation button{
+    background-color: #4B0731;
+    color: #C06EA0;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 15px;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+#partie_reservation button:hover{
+    background-color: #C06EA0;
+    color: #4B0731;
+}
+
+#partie_description_resa h2{
+  color: #09000E;
+  padding-top: 50px;
+  padding-bottom: 30px;
+  font-weight: bold;
+}
+
+#partie_description_resa a:hover{
+  font-weight:bold;
+}
+
+#message_erreur_dates {
+    color: #6D071A;
+}
+
+#message_erreur_dates h2 {
+    color: #6D071A;
+}
+
+#message_erreur_dates a,p {
+    color: #2B0A40;
+}
+
+#message_erreur_dates a:hover{
+    text-decoration:none;
+    font-weight:bold;
+}
+
+#message_erreur_dates img{
+    width: 50%;
+}
+
+#liste_reservation {
+    background-color: #862D63;
+    color: #F1C2DF;
+    padding: 20px;
+    margin: 10px;
+}
+
+#liste_reservation button{
+    background-color: #4B0731;
+    color: #C06EA0;
+    padding: 15px;
+    margin: 10px;
+    border: 0px;
+    border-radius: 5px;
+}
+
+#liste_reservation button:hover{
+    background-color: #C06EA0;
+    color: #11000A;
+    font-weight: bold;
+}
+
+#partie_description_resa {
+  color: #09000E;
+  padding: 40px;
+}
+
+#resultat_reservation h2{
+    color: #2B0A40;
+}
+
+#resultat_reservation a{
+    color: #2B0A40;
+}
+
+#resultat_reservation a:hover{
+    font-weight: bold;
+}
+
+h3 {
+    color: #2B0A40;
+}
+
+#infos_resa {
+    background-color: #C06EA0;
+    color: #4B0731;
+    padding: 30px;
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+#infos_resa p{
+    color: #4B0731;
+}
+
+#infos_resa h3{
+    color: #4B0731;
+}
+
+#infos_vehicule {
+    background-color: #4B0731;
+    color: #F1C2DF;
+    padding: 30px;
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+#infos_vehicule p{
+    color: #F1C2DF;
+}
+
+#infos_vehicule button{
+    background-color: #C06EA0;
+    color: #09000E;
+    padding: 9px;
+    margin-top: 15px;
+    text-align: center;
+    border-radius: 5px;
+    border: 0px;
+}
+
+#infos_vehicule button:hover{
+    background-color: #F1C2DF;
+    color: #862D63;
+    font-weight: bold;
+}
+
+#new_vehicule {
+    background-image: url(../images/img9.jpg);
+    color: #2B0A40;
+    padding: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+#new_vehicule option{
+    color: #2B0A40;
+}
+
+#new_vehicule select{
+    color: #2B0A40;
+}
+
+#new_vehicule p{
+    color: #D9BFEA;
+}
+
+#new_vehicule button{
+    background-color: #2B0A40;
+    color: #8A61A4;
+    padding: 9px;
+    margin-top: 15px;
+    text-align: center;
+    border-radius: 5px;
+    border: 0px;
+}
+
+#new_vehicule button:hover{
+    background-color: #8A61A4;
+    color: #4B0731;
+    font-weight: bold;
+}
+
+#body_finalisation {
+  background-image: url(../images/img11.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  height: 100%;
+  font-family: 'Noto Sans TC', sans-serif;
+  
+}
+
+#message_finalisation{
+    padding: 50px;
+    width: 70%;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #09000E;
+    background-color: #D9BFEA;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+    opacity: 0.95;
+    border-radius: 5px;
+  
+}
+
+#message_finalisation h2{
+    color: #2B0A40;
+    font-weight: bold;
+  
+}
+
+#message_finalisation a{
+    color: #2B0A40;
+    font-weight: bold;
+  
+}
+
+#message_finalisation a:hover{
+    text-decoration: underline;
+}
+
+#infos_loc {
+   padding: 20px;
+   margin-left: 10%;
+   margin-right: 10%;
+}
+
+#infos_loc a{
+   color: #2B0A40;
+   font-weight: bold;
+}
+
+#infos_loc a:hover{
+   text-decoration: underline;
+}
+
+#infos_loc img{
+   margin: 20px;
+   border: 1px solid #2B0A40;
+}
+
+#form_loc button{
+    background-color: #562A72;
+    color: #D9BFEA;
+    padding: 15px;
+    margin-top: 15px;
+    text-align: center;
+    border-radius: 5px;
+    border: 0px;
+}
+
+#form_loc button:hover{
+    background-color: #8A61A4;
+    color: #2B0A40;
+    font-weight: bold;
+}
+
+#body_finalisation2 {
+  background-image: url(../images/img12.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  height: 100%;
+  font-family: 'Noto Sans TC', sans-serif;
+  
+}
+
+#partie_profil_top {
+    border: 0px;
+    text-align: center;
+    margin-right: 10%;
+    margin-left:10%;
+    margin-top: 60px;
+    margin-bottom: 10px;
+}
+
+#partie_profil_top summary{
+    border: 0px;
+    font-weight: bold
+}
+
+#partie_profil_top summary h2:hover{
+    border: 0px;
+    font-weight: bold
+}
+
+#vehicule_profil {
+    padding: 10px;
+    background-color: #C06EA0;
+    margin-left: 20%;
+    margin-right: 20%;
+    border-radius: 5px;
+    
+}
+
+#vehicule_profil p{
+    color: #6D071A;
+}
+
+#vehicule_profil button{
+    background-color: #6D071A;
+    color: #F1C2DF;
+    padding: 8px;
+    text-align: center;
+    border-radius: 5px;
+    border: 0px;
+}
+
+#vehicule_profil button:hover{
+    background-color: #F1C2DF;
+    color: #4B0731;
+    font-weight: bold;
+}
+
+#partie_profil {
+    border: 0px;
+    text-align: center;
+    margin-right: 10%;
+    margin-left:10%;
+    margin: 10px;
+    color: #2B0A40;
+}
+
+#partie_profil summary{
+    border: 0px;
+    font-weight: bold
+}
+
+#partie_profil summary h2:hover{
+    border: 0px;
+    font-weight: bold
+}
+
+#new_vehicule2 {
+    background-image: url(../images/img9.jpg);
+    color: #2B0A40;
+    padding: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+#new_vehicule2 p{
+    color: #D9BFEA;
+}
+
+#new_vehicule2 button{
+    background-color: #8A61A4;
+    color: #11000A;
+    padding: 5px;
+    font-size: 12px;
+    margin-top: 15px;
+    text-align: center;
+    border-radius: 5px;
+    border: 0px;
+}
+
+#new_vehicule2 button:hover{
+    background-color: #D9BFEA;
+   
+}
+
+#infos_perso {
+    padding: 10px;
+    background-color: #8A61A4;
+    margin-left: 20%;
+    margin-right: 20%;
+    border-radius: 5px;
+    
+}
+
+#partie_credits {
+    background-image: url(../images/img14.jpg);
+    padding: 40px;
+    margin: 0px;
+    }
+    
+#partie_credits h2{
+    padding: 30px;
+    color: #D9BFEA;
+    margin: 0px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Noto Sans TC', sans-serif;
+    }
+    
+#partie_credits p{
+    font-size: 20px;
+    padding: 30px;
+    color: #D9BFEA;
+    margin: 0px;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Noto Sans TC', sans-serif;
+    }
