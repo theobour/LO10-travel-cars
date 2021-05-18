@@ -49,20 +49,20 @@ try {
 
     // On teste si la personne est connectée, sinon on cache le corps du texte et on la renvoie vers page de connexion.
 
-    if (!isset($_SESSION[pseudo])) {
+    if (!isset($_SESSION["pseudo"])) {
         echo("<style>.container{display:none;}</style><br/>Tu n'es pas connecté(e)... <a href=connection.php>Me connecter</a>");
     }
 
     // Mise à jour des informations concernant l'utilisateur
 
     // Supprimer un véhicule
-    if (isset($_POST[numero_voiture])) {
+    if (isset($_POST["numero_voiture"])) {
         $nb_modifs = $bdd->exec('DELETE FROM vehicule WHERE id = \'' . $_POST[numero_voiture] . '\' ');
         echo("<p id=message_alerte>Ton véhicule a bien été supprimé.</p>");
     }
 
     // Supprimer une location
-    if (isset($_POST[numero_location])) {
+    if (isset($_POST["numero_location"])) {
         $nb_modif1 = $bdd->exec('UPDATE vehicule SET location = \'' . $location_nom . '\' WHERE id =\'' . $_POST[numero_location] . '\'');
         $nb_modif2 = $bdd->exec('UPDATE vehicule SET locataire = \'' . $locataire_nom . '\' WHERE id =\'' . $_POST[numero_location] . '\'');
         $prix_loc_rembourse = $_POST[prix_loc] / 2;
@@ -70,53 +70,32 @@ try {
     }
 
     // Annuler une réservation de parking suivant certaines conditions
-    if (isset($_POST[numero_reservation]) and $_POST[location_voiture] == "non") {
+    if (isset($_POST["numero_reservation"]) and $_POST["location_voiture"] == "non") {
         $nb_modifs = $bdd->exec('DELETE FROM vehicule WHERE id = \'' . $_POST[numero_reservation] . '\' ');
         $prix_resa_rembourse = $_POST[prix_resa] / 2;
         echo("<p id=message_alerte>Ta réservation a bien été annulée. Le remboursement sera de $prix_resa_rembourse €.</p>");
     }
 
     // Message d'erreur si réservation peut pas être annulée
-    if (isset($_POST[numero_reservation]) and $_POST[location_voiture] == "oui") {
+    if (isset($_POST["numero_reservation"]) and $_POST["location_voiture"] == "oui") {
         echo("<p id=message_alerte>Tu ne peux pas annuler ta réservation, ta voiture a déjà été louée.</p>");
     }
 
     // Changement du prénom
-    if (isset($_POST[prenom])) {
-        $modif_prenom = $bdd->exec('UPDATE identifiant SET prenom =\'' . ucfirst(strtolower($_POST[prenom])) . '\' WHERE pseudo =\'' . $_SESSION[pseudo] . '\'');
-        unset($_SESSION['prenom']);
-        $_SESSION['prenom'] = $_POST[prenom];
-        echo("<p id=message_alerte>Le prénom a été modifié.</p>");
+    if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['email']) && isset($_POST['naissance']) && isset($_POST['telephone'])) {
+        echo 'Votre profil a bien été modifié';
+        $update = updateUserProfile($_SESSION['id'], array(
+                'prenom'=>$_POST['prenom'],
+                'nom'=>$_POST['nom'],
+                'email'=>$_POST['email'],
+                'naissance'=>$_POST['naissance'],
+                'telephone'=>$_POST['telephone'],
+        ));
     }
 
-    // Changement du nom
-    if (isset($_POST[nom])) {
-        $modif_nom = $bdd->exec('UPDATE identifiant SET nom =\'' . ucfirst(strtolower($_POST[nom])) . '\' WHERE pseudo =\'' . $_SESSION[pseudo] . '\'');
-        unset($_SESSION['nom_user']);
-        $_SESSION['nom_user'] = $_POST[nom];
-        echo("<p id=message_alerte>Le nom a été modifié.</p>");
-    }
-
-    // Changement de l'email
-    if (isset($_POST[email])) {
-        $modif_email = $bdd->exec('UPDATE identifiant SET email =\'' . $_POST[email] . '\' WHERE pseudo =\'' . $_SESSION[pseudo] . '\'');
-        echo("<p id=message_alerte>L'email a été modifié.</p>");
-    }
-
-    // Changement de la date de naissance
-    if (isset($_POST[birthdate])) {
-        $modif_birthdate = $bdd->exec('UPDATE identifiant SET birthdate =\'' . $_POST[birthdate] . '\' WHERE pseudo =\'' . $_SESSION[pseudo] . '\'');
-        echo("<p id=message_alerte>La date de naissance a été modifiée.</p>");
-    }
 
     // Changement du téléphone
-    if (isset($_POST[telephone])) {
-        $modif_telephone = $bdd->exec('UPDATE identifiant SET telephone =\'' . $_POST[telephone] . '\' WHERE pseudo =\'' . $_SESSION[pseudo] . '\'');
-        echo("<p id=message_alerte>Le numéro de téléphone a été modifié.</p>");
-    }
-
-    // Changement du téléphone
-    if (isset($_POST[mdp])) {
+    if (isset($_POST["mdp"])) {
         $modif_mdp = $bdd->exec('UPDATE identifiant SET mdp =\'' . password_hash($_POST[mdp], PASSWORD_DEFAULT) . '\' WHERE pseudo =\'' . $_SESSION[pseudo] . '\'');
         echo("<p id=message_alerte>Le mot de passe a été modifié.</p>");
     }
@@ -148,39 +127,11 @@ try {
     echo("<div id=\"new_vehicule2\">");
     echo("<form action=profil.php method=post>
             <input type=text name=prenom value=\"$utilisateur->prenom\" >
-            <button type=submit >Modifier mon prénom</button>
-            </form>"
-    );
-
-    // Modification du NOM
-
-    echo("<form action=profil.php method=post>
             <input type=text name=nom value=\"$utilisateur->nom\" >
-            <button type=submit >Modifier mon nom</button>
-            </form>"
-    );
-
-    // Modification de l'EMAIL
-
-    echo("<form action=profil.php method=post>
-            <input type=email name=email value=\"$utilisateur->email\" >
-            <button type=submit >Modifier mon email</button>
-            </form>"
-    );
-
-    // Modification de la DATE DE NAISSANCE
-
-    echo("<form action=profil.php method=post>
-            <input type=date name=naissance value=\"$utilisateur->naissance\" >
-            <button type=submit >Modifier ma date de naissance</button>
-            </form>"
-    );
-
-    // Modification du TELEPHONE
-
-    echo("<form action=profil.php method=post>
-            <input type=tel name=telephone value=\"$utilisateur->telephone\" >
-            <button type=submit >Modifier mon numéro de téléphone</button>
+             <input type=email name=email value=\"$utilisateur->email\" >
+             <input type=date name=naissance value=\"$utilisateur->naissance\" >
+             <input type=tel name=telephone value=\"$utilisateur->telephone\" >
+            <button type=submit >Modifier mes informations</button>
             </form>"
     );
 

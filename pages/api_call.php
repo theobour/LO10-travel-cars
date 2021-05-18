@@ -152,6 +152,19 @@ function getOneUser($user_id) {
         return false;
     }
 }
+function updateUserProfile($id, $jsonData)
+{
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initPut($url . '/auth.php?id=' . $id, $jsonData);
+    curl_close($ch);
+    if ($status_code === 200) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
 
 function createReservation($jsonData) {
     GLOBAL $url;
