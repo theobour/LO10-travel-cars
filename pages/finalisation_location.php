@@ -11,13 +11,15 @@ $locataire_id = $_POST['locataire_id'];
 $parking_id = $_POST['parking_id'];
 $date_debut = $_POST['date_debut'];
 $date_fin = $_POST['date_fin'];
+$prix = $_POST['prix'];
 
 $r = createReservation(array(
     'voiture_id' => $voiture_id,
     'locataire_id' => $locataire_id,
     'parking_id' => $parking_id,
     'date_debut' => $date_debut,
-    'date_fin' => $date_fin
+    'date_fin' => $date_fin,
+    'prix' => $prix
 ));
 
 

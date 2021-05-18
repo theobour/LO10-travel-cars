@@ -119,10 +119,32 @@ function getOneVoiture($voiture_id) {
         return false;
     }
 }
+function getVoitureFromUtilisateur($utilisateur_id) {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initGet($url . '/voiture.php?utilisateur_id=' . $utilisateur_id, false);
+    curl_close($ch);
+    if ($status_code === 200) {
+        return json_decode($response);
+    } else {
+        return false;
+    }
+}
 function getOneParking($parking_id) {
     GLOBAL $url;
     //The JSON data.
     list($response, $status_code, $ch) = initGet($url . '/parking.php?id=' . $parking_id, false);
+    curl_close($ch);
+    if ($status_code === 200) {
+        return json_decode($response);
+    } else {
+        return false;
+    }
+}
+function getOneUser($user_id) {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initGet($url . '/auth.php?id=' . $user_id, false);
     curl_close($ch);
     if ($status_code === 200) {
         return json_decode($response);
@@ -138,6 +160,17 @@ function createReservation($jsonData) {
     curl_close($ch);
     if ($status_code === 201) {
         return true;
+    } else {
+        return false;
+    }
+}
+function getReservationFromLocataire($locataire_id) {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initGet($url . '/reservation.php?locataire_id=' . $locataire_id, false);
+    curl_close($ch);
+    if ($status_code === 200) {
+        return json_decode($response);
     } else {
         return false;
     }

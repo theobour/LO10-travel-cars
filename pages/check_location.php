@@ -4,11 +4,6 @@
 
 session_start();
 require_once('./api_call.php');
-try {
-    $bdd = new PDO('mysql:host=localhost;dbname=lo07;charset=utf8', 'root', 'root');
-} catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
 
 // Variables récupérées du formulaire de location
 
@@ -125,6 +120,7 @@ $lieu = $_POST['lieu'];
         <input type="hidden" value="<?php echo($id_parking_choisi); ?>" name="parking_id">
         <input type="hidden" value="<?php echo($date_entree); ?>" name="date_debut">
         <input type="hidden" value="<?php echo($date_sortie); ?>" name="date_fin">
+        <input type="hidden" value="<?php echo($prix_loc); ?>" name="prix">
 
         <button type="submit" class="btn btn-primary">Louer le véhicule</button>
 
