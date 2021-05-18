@@ -66,11 +66,11 @@ $lieu_prix = $_POST[lieu_prix];
     if (isset($_POST["parking_lieu"]) && isset($_POST["parking_aeroport_id"]) && isset($_POST["parking_prix"]) && isset($_POST["parking_nb_places"]) && isset($_POST["parking_adresse"])) {
 
         $creation = createParking(array(
-                "nb_places" =>$_POST["parking_nb_places"],
-                "lieu" =>$_POST["parking_lieu"],
-                "aeroport_id" =>$_POST["parking_aeroport_id"],
-                "prix" =>$_POST["parking_prix"],
-                "adresse" =>$_POST["parking_adresse"],
+            "nb_places" => $_POST["parking_nb_places"],
+            "lieu" => $_POST["parking_lieu"],
+            "aeroport_id" => $_POST["parking_aeroport_id"],
+            "prix" => $_POST["parking_prix"],
+            "adresse" => $_POST["parking_adresse"],
         ));
         if ($creation) {
             echo("<p>Le parking $lieu de l'aéroport $lieu_aeroport a été rajouté à la base de données.</p> ");
@@ -169,150 +169,20 @@ $lieu_prix = $_POST[lieu_prix];
         <button type="submit">Rajouter cet endroit de stationnement</button>
 
     </form>
-
-    <!-- Liste des aéroports -->
-
-    <details>
-
-        <summary><h2>Aéroports partenaires</h2></summary>
-
-        <?php
-
-        $reponseaeroport = $bdd->query('SELECT aeroport FROM aeroport');
-
-        $requeteaeroport = $bdd->query('SELECT COUNT(aeroport) AS NbAeroport FROM aeroport');
-
-        $compteuraeroport = $requeteaeroport->fetch();
-
-        ?>
-
-        <table class="table table-bordered table-striped table-condensed">
-
-            <caption>
-
-                <h4>Récupération des aéroports concernés (<?php echo($compteuraeroport[NbAeroport]); ?> au total)</h4>
-
-            </caption>
-
-            <thead>
-
-            <tr>
-
-                <th>Aeroport</th>
-
-            </tr>
-
-            </thead>
-
-            <tbody>
-
-            <?php
-
-            while ($donneesaeroport = $reponseaeroport->fetch()) {
-                echo("<tr>");
-                echo("<td>$donneesaeroport[aeroport]</td>");
-                echo("</tr>");
-            }
-
-            $reponseaeroport->closeCursor();
-
-            ?>
-
-            </tbody>
-
-        </table>
-
-    </details>
-
-    <!-- Parkings -->
-
-    <details>
-
-        <summary><h2>Parking partenaires</h2></summary>
-
-        <?php
-
-        $reponselieu = $bdd->query('SELECT lieu, aeroport, nb_places, prix FROM site');
-
-        $requetelieu = $bdd->query('SELECT COUNT(lieu) AS NbLieu FROM site');
-
-        $compteurlieu = $requetelieu->fetch();
-
-        ?>
-
-        <table class="table table-bordered table-striped table-condensed">
-
-            <caption>
-
-                <h4>Récupération des parkings de stationnement des véhicules (<?php echo($compteurlieu[NbLieu]); ?> au
-                    total)</h4>
-
-            </caption>
-
-            <thead>
-
-            <tr>
-
-                <th>Parking</th>
-                <th>Aéroport concerné</th>
-                <th>Nombre de places restantes</th>
-                <th>Tarif</th>
-
-            </tr>
-
-            </thead>
-
-            <tbody>
-
-            <?php
-
-            while ($donneeslieu = $reponselieu->fetch()) {
-
-                $requetelieuspe = $bdd->query('SELECT COUNT(id) AS NbLieuSpe FROM vehicule WHERE lieu =\'' . $donneeslieu[lieu] . '\' ');
-
-                $compteurlieuspe = $requetelieuspe->fetch();
-
-                $compteurtotal = $donneeslieu[nb_places] + $compteurlieuspe[NbLieuSpe];
-
-                echo("<tr>");
-                echo("<td>$donneeslieu[lieu]</td>");
-                echo("<td>$donneeslieu[aeroport]</td>");
-                echo("<td>$donneeslieu[nb_places] sur $compteurtotal</td>");
-                echo("<td>$donneeslieu[prix] €</td>");
-                echo("</tr>");
-            }
-
-            $reponselieu->closeCursor();
-
-            ?>
-
-            </tbody>
-
-        </table>
-
-    </details>
-
-    <!-- Utilisateurs -->
-
     <details>
 
         <summary><h2>Utilisateurs du site web</h2></summary>
 
         <?php
 
-        $reponsepseudo = $bdd->query('SELECT pseudo, prenom, nom, email, birthdate, telephone FROM identifiant WHERE pseudo != "administrateur"');
-
-        $requetepseudo = $bdd->query('SELECT COUNT(pseudo) AS NbUtilisateurs FROM identifiant WHERE pseudo != "administrateur"');
-
-        $compteurpseudo = $requetepseudo->fetch();
+        $utilisateurs = getUsers();
 
         ?>
-
         <table class="table table-bordered table-striped table-condensed">
 
             <caption>
 
-                <h4>Récupération des utilisateurs du site (<?php echo($compteurpseudo[NbUtilisateurs]); ?> au
+                <h4>Récupération des utilisateurs du site (<?php echo(sizeof($utilisateurs)); ?> au
                     total)</h4>
 
             </caption>
@@ -337,21 +207,68 @@ $lieu_prix = $_POST[lieu_prix];
 
             <?php
 
-            while ($donneespseudo = $reponsepseudo->fetch()) {
+            foreach ($utilisateurs as $utilisateur) {
                 echo("<tr>");
-                echo("<td>$donneespseudo[pseudo]</td>");
-                echo("<td>$donneespseudo[prenom]</td>");
-                echo("<td>$donneespseudo[nom]</td>");
-                echo("<td>$donneespseudo[email]</td>");
-                echo("<td>$donneespseudo[birthdate]</td>");
-                echo("<td>0$donneespseudo[telephone]</td>");
+                echo("<td>$utilisateur->pseudo</td>");
+                echo("<td>$utilisateur->prenom</td>");
+                echo("<td>$utilisateur->nom</td>");
+                echo("<td>$utilisateur->email</td>");
+                echo("<td>$utilisateur->birthdate</td>");
+                echo("<td>0$utilisateur->telephone</td>");
                 echo("<td><form method=post action=insert_admin.php>
-                               <input type=hidden name=pseudo_suppression value=$donneespseudo[pseudo]>
+                               <input type=hidden name=pseudo_suppression value=$utilisateur->pseudo>
                                <button type=submit>Supprimer</button></form></td>");
                 echo("</tr>");
             }
 
-            $reponsepseudo->closeCursor();
+            ?>
+
+            </tbody>
+
+        </table>
+
+    </details>
+
+    <!-- Liste des aéroports -->
+
+    <details>
+
+        <summary><h2>Aéroports partenaires</h2></summary>
+
+        <?php
+
+        $aeroports = getAeroport()
+
+        ?>
+
+        <table class="table table-bordered table-striped table-condensed">
+
+            <caption>
+
+                <h4>Récupération des aéroports concernés (<?php echo(sizeof($aeroports)); ?> au total)</h4>
+
+            </caption>
+
+            <thead>
+
+            <tr>
+
+                <th>Aeroport</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <?php
+
+            foreach ($aeroports as $aeroport) {
+                echo("<tr>");
+                echo("<td>$aeroport->nom</td>");
+                echo("</tr>");
+            }
+
 
             ?>
 
@@ -360,143 +277,202 @@ $lieu_prix = $_POST[lieu_prix];
         </table>
 
     </details>
+
+    <!-- Parkings -->
+
+    <details>
+
+        <summary><h2>Parking partenaires</h2></summary>
+
+        <?php
+
+        $parkings = getParkings()
+
+        ?>
+
+        <table class="table table-bordered table-striped table-condensed">
+
+            <caption>
+
+                <h4>Récupération des parkings de stationnement des véhicules (<?php echo(sizeof($parkings)); ?> au
+                    total)</h4>
+
+            </caption>
+
+            <thead>
+
+            <tr>
+
+                <th>Parking</th>
+                <th>Aéroport concerné</th>
+                <th>Nombre de places restantes</th>
+                <th>Tarif</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <?php
+
+            foreach ($parkings as $parking) {
+
+                echo("<tr>");
+                echo("<td>$parking->lieu</td>");
+                echo("<td>$parking->aeroport_nom</td>");
+                echo("<td>$parking->nb_places</td>");
+                echo("<td>$parking->prix €</td>");
+                echo("</tr>");
+            }
+
+            ?>
+
+            </tbody>
+
+        </table>
+
+    </details>
+
 
     <!-- Véhicules loués -->
+    <?php
 
-    <details>
-
-        <summary><h2>Véhicules stationnés et déjà loués</h2></summary>
-
-        <?php
-
-        $reponsevehiculeloue = $bdd->query('SELECT type, datedebut, datefin, aeroport, proprietaire, lieu, locataire FROM vehicule WHERE locataire != "administrateur"');
-
-        $requetevehiculeloue = $bdd->query('SELECT COUNT(locataire) AS NbVehiculesLoues FROM vehicule WHERE locataire != "administrateur"');
-
-        $compteurvehiculeloue = $requetevehiculeloue->fetch();
-
-        ?>
-
-        <table class="table table-bordered table-striped table-condensed">
-
-            <caption>
-
-                <h4>Récupération des véhicules loués (<?php echo($compteurvehiculeloue[NbVehiculesLoues]); ?> au
-                    total)</h4>
-
-            </caption>
-
-            <thead>
-
-            <tr>
-
-                <th>Type</th>
-                <th>Propriétaire</th>
-                <th>Locataire</th>
-                <th>Date de début</th>
-                <th>Date de fin</th>
-                <th>Lieu de stationnement</th>
-
-            </tr>
-
-            </thead>
-
-            <tbody>
-
-            <?php
-
-            while ($donneesvehiculeloue = $reponsevehiculeloue->fetch()) {
-                echo("<tr>");
-                echo("<td>$donneesvehiculeloue[type]</td>");
-                echo("<td>$donneesvehiculeloue[proprietaire]</td>");
-                echo("<td>$donneesvehiculeloue[locataire]</td>");
-                echo("<td>$donneesvehiculeloue[datedebut]</td>");
-                echo("<td>$donneesvehiculeloue[datefin]</td>");
-                echo("<td>$donneesvehiculeloue[lieu], à $donneesvehiculeloue[aeroport]</td>");
-                echo("</tr>");
-            }
-
-            $reponsevehiculeloue->closeCursor();
-
-            ?>
-
-            </tbody>
-
-        </table>
-
-    </details>
-
-    <!-- Véhicules non loués -->
-
-    <details>
-
-        <summary><h2>Véhicules stationnés mais non loués</h2></summary>
-
-        <?php
-
-        $reponsevehicule = $bdd->query('SELECT type, couleur, marque, car_places, car_etat, date_entree, date_sortie, aeroport, proprietaire, lieu FROM vehicule WHERE locataire = "administrateur"');
-
-        $requetevehicule = $bdd->query('SELECT COUNT(id) AS NbVehicules FROM vehicule WHERE locataire = "administrateur"');
-
-        $compteurvehicule = $requetevehicule->fetch();
-
-        ?>
-
-        <table class="table table-bordered table-striped table-condensed">
-
-            <caption>
-
-                <h4>Récupération des véhicules non-loués stationnés (<?php echo($compteurvehicule[NbVehicules]); ?> au
-                    total)</h4>
-
-            </caption>
-
-            <thead>
-
-            <tr>
-
-                <th>Type</th>
-                <th>Propriétaire</th>
-                <th>Couleur</th>
-                <th>Marque</th>
-                <th>Etat du véhicule</th>
-                <th>Nombre de places</th>
-                <th>Date d'entrée</th>
-                <th>Date de sortie</th>
-                <th>Lieu de stationnement</th>
-
-            </tr>
-
-            </thead>
-
-            <tbody>
-
-            <?php
-
-            while ($donneesvehicule = $reponsevehicule->fetch()) {
-                echo("<tr>");
-                echo("<td>$donneesvehicule[type]</td>");
-                echo("<td>$donneesvehicule[proprietaire]</td>");
-                echo("<td>$donneesvehicule[couleur]</td>");
-                echo("<td>$donneesvehicule[marque]</td>");
-                echo("<td>$donneesvehicule[car_etat]</td>");
-                echo("<td>$donneesvehicule[car_places]</td>");
-                echo("<td>$donneesvehicule[date_entree]</td>");
-                echo("<td>$donneesvehicule[date_sortie]</td>");
-                echo("<td>$donneesvehicule[lieu], à $donneesvehicule[aeroport]</td>");
-                echo("</tr>");
-            }
-
-            $reponsepseudo->closeCursor();
-
-            ?>
-
-            </tbody>
-
-        </table>
-
-    </details>
-
+    /**
+     * <details>
+     *
+     * <summary><h2>Véhicules stationnés et déjà loués</h2></summary>
+     *
+     * <?php
+     *
+     * $reponsevehiculeloue = $bdd->query('SELECT type, datedebut, datefin, aeroport, proprietaire, lieu, locataire FROM vehicule WHERE locataire != "administrateur"');
+     *
+     * $requetevehiculeloue = $bdd->query('SELECT COUNT(locataire) AS NbVehiculesLoues FROM vehicule WHERE locataire != "administrateur"');
+     *
+     * $compteurvehiculeloue = $requetevehiculeloue->fetch();
+     *
+     * ?>
+     *
+     * <table class="table table-bordered table-striped table-condensed">
+     *
+     * <caption>
+     *
+     * <h4>Récupération des véhicules loués (<?php echo($compteurvehiculeloue[NbVehiculesLoues]); ?> au
+     * total)</h4>
+     *
+     * </caption>
+     *
+     * <thead>
+     *
+     * <tr>
+     *
+     * <th>Type</th>
+     * <th>Propriétaire</th>
+     * <th>Locataire</th>
+     * <th>Date de début</th>
+     * <th>Date de fin</th>
+     * <th>Lieu de stationnement</th>
+     *
+     * </tr>
+     *
+     * </thead>
+     *
+     * <tbody>
+     *
+     * <?php
+     *
+     * while ($donneesvehiculeloue = $reponsevehiculeloue->fetch()) {
+     * echo("<tr>");
+     * echo("<td>$donneesvehiculeloue[type]</td>");
+     * echo("<td>$donneesvehiculeloue[proprietaire]</td>");
+     * echo("<td>$donneesvehiculeloue[locataire]</td>");
+     * echo("<td>$donneesvehiculeloue[datedebut]</td>");
+     * echo("<td>$donneesvehiculeloue[datefin]</td>");
+     * echo("<td>$donneesvehiculeloue[lieu], à $donneesvehiculeloue[aeroport]</td>");
+     * echo("</tr>");
+     * }
+     *
+     * $reponsevehiculeloue->closeCursor();
+     *
+     * ?>
+     *
+     * </tbody>
+     *
+     * </table>
+     *
+     * </details>
+     *
+     * <!-- Véhicules non loués -->
+     *
+     * <details>
+     *
+     * <summary><h2>Véhicules stationnés mais non loués</h2></summary>
+     *
+     * <?php
+     *
+     * $reponsevehicule = $bdd->query('SELECT type, couleur, marque, car_places, car_etat, date_entree, date_sortie, aeroport, proprietaire, lieu FROM vehicule WHERE locataire = "administrateur"');
+     *
+     * $requetevehicule = $bdd->query('SELECT COUNT(id) AS NbVehicules FROM vehicule WHERE locataire = "administrateur"');
+     *
+     * $compteurvehicule = $requetevehicule->fetch();
+     *
+     * ?>
+     *
+     * <table class="table table-bordered table-striped table-condensed">
+     *
+     * <caption>
+     *
+     * <h4>Récupération des véhicules non-loués stationnés (<?php echo($compteurvehicule[NbVehicules]); ?> au
+     * total)</h4>
+     *
+     * </caption>
+     *
+     * <thead>
+     *
+     * <tr>
+     *
+     * <th>Type</th>
+     * <th>Propriétaire</th>
+     * <th>Couleur</th>
+     * <th>Marque</th>
+     * <th>Etat du véhicule</th>
+     * <th>Nombre de places</th>
+     * <th>Date d'entrée</th>
+     * <th>Date de sortie</th>
+     * <th>Lieu de stationnement</th>
+     *
+     * </tr>
+     *
+     * </thead>
+     *
+     * <tbody>
+     *
+     * <?php
+     *
+     * while ($donneesvehicule = $reponsevehicule->fetch()) {
+     * echo("<tr>");
+     * echo("<td>$donneesvehicule[type]</td>");
+     * echo("<td>$donneesvehicule[proprietaire]</td>");
+     * echo("<td>$donneesvehicule[couleur]</td>");
+     * echo("<td>$donneesvehicule[marque]</td>");
+     * echo("<td>$donneesvehicule[car_etat]</td>");
+     * echo("<td>$donneesvehicule[car_places]</td>");
+     * echo("<td>$donneesvehicule[date_entree]</td>");
+     * echo("<td>$donneesvehicule[date_sortie]</td>");
+     * echo("<td>$donneesvehicule[lieu], à $donneesvehicule[aeroport]</td>");
+     * echo("</tr>");
+     * }
+     *
+     * $reponsepseudo->closeCursor();
+     *
+     * ?>
+     *
+     * </tbody>
+     *
+     * </table>
+     *
+     * </details>
+     **/ ?>
 </div>
 
 </body>

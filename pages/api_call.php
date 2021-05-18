@@ -165,6 +165,17 @@ function getOneUser($user_id) {
         return false;
     }
 }
+function getUsers() {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initGet($url . '/auth.php', false);
+    curl_close($ch);
+    if ($status_code === 200) {
+        return json_decode($response);
+    } else {
+        return false;
+    }
+}
 function updateUserProfile($id, $jsonData)
 {
     GLOBAL $url;
@@ -227,6 +238,17 @@ function getParkingOfOneAeroport($aeroport_id) {
     GLOBAL $url;
     //The JSON data.
     list($response, $status_code, $ch) = initGet($url . '/parking.php?aeroport_id=' . $aeroport_id, false);
+    curl_close($ch);
+    if ($status_code === 200) {
+        return json_decode($response);
+    } else {
+        return false;
+    }
+}
+function getParkings() {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initGet($url . '/parking.php', false);
     curl_close($ch);
     if ($status_code === 200) {
         return json_decode($response);
