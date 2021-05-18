@@ -3,10 +3,10 @@
 // Démarrage session + connexion base de données
 
 session_start();
-
+require_once('./api_call.php');
 try
 {
-    $bdd = new PDO('mysql:host=localhost;dbname=lo07;charset=utf8', 'root', 'CandiceAlcaraz32');
+    $bdd = new PDO('mysql:host=localhost;dbname=lo07;charset=utf8', 'root', 'root');
 }
 
 catch (Exception $e)
@@ -16,10 +16,13 @@ catch (Exception $e)
 
 // Variables du formulaire de réservation
 
-$aeroport_choisi = $_POST[aeroport_choisi];
-$lieu_choisi = $_POST[lieu_choisi];
-$date_entree = $_POST[date_entree];
-$date_sortie = $_POST[date_sortie];
+$aeroport_id = $_POST["aeroport_id"];
+$aeroport_nom = $_POST["aeroport_nom"];
+$parking_id = $_POST["parking_id"];
+$lieu = $_POST["lieu"];
+$adresse = $_POST["adresse"];
+$date_entree = $_POST["date_entree"];
+$date_sortie = $_POST["date_sortie"];
 
 // Calcul du prix total (pas journalier)
 $date_entree_modif = strtotime($date_entree);
@@ -27,8 +30,7 @@ $date_sortie_modif = strtotime($date_sortie);
 $nbjours_resa_stamp = $date_sortie_modif - $date_entree_modif;
 $nbjours_resa = $nbjours_resa_stamp/86400;
 
-$prix_resa = $_POST[prix_choisi]*($nbjours_resa+1);
-$adresse = "$_POST[adresse]";
+$prix_resa = $_POST["prix_choisi"]*($nbjours_resa+1);
 
 ?>
 
@@ -59,7 +61,7 @@ $adresse = "$_POST[adresse]";
 
             // On teste si la personne est connectée, sinon on cache le corps du texte et on la renvoie vers page de connexion.
 
-            if (!isset($_SESSION[pseudo])) {
+            if (!isset($_SESSION["pseudo"])) {
                 echo("<style>.container{display:none;}</style><br/>Tu n'es pas connecté(e)... <a href=connection.php>Me connecter</a>");
             }
 
@@ -69,7 +71,7 @@ $adresse = "$_POST[adresse]";
 
             // On teste si des infos sont rentrées pour le formulaire.
 
-            if (!isset($_POST[lieu_choisi])) {
+            if (!isset($_POST["lieu_choisi"])) {
                 echo("<style>form button{display:none;}</style>");
             }
 
@@ -87,8 +89,8 @@ $adresse = "$_POST[adresse]";
                 
             <h3>Informations sur la place de parking choisie :</h3>
             
-            <p><strong>Aéroport choisi :</strong> <?php echo ("$aeroport_choisi");?></p>
-            <p><strong>Parking choisi :</strong> <?php echo ("$lieu_choisi");?></p>
+            <p><strong>Aéroport choisi :</strong> <?php echo ("$aeroport_nom");?></p>
+            <p><strong>Parking choisi :</strong> <?php echo ("$lieu");?></p>
             <p><strong>Adresse :</strong> <?php echo ("$adresse");?> </p>
             <p><strong>Date d'arrivée :</strong> <?php echo ("$date_entree");?></p>
             <p><strong>Date de sortie :</strong> <?php echo ("$date_sortie");?></p>
@@ -108,44 +110,35 @@ $adresse = "$_POST[adresse]";
             
                 // Choix d'un véhicule déjà enregistré
             
-                $reponse = $bdd->query('SELECT id, type, couleur, marque, car_places, car_etat FROM vehicule WHERE proprietaire=\'' . $_SESSION[pseudo] . '\' AND copie =\'non\'');
-                
+                $voitures = getVoitureFromUtilisateur($_SESSION['id']);
                 $nbr_vehicule = 0;
-                while ($donnees = $reponse->fetch())
+                foreach ($voitures as $voiture)
                 {
                     // Formulaire pour envoyer toutes les infos sur le véhicule + la résa à la page de finalisation
                         echo("<div id=infos_vehicule>");
-                        echo ("<p><strong>Type :</strong> $donnees[type]</p>");
-                        echo ("<p><strong>Couleur :</strong> $donnees[couleur]</p>");
-                        echo ("<p><strong>Marque :</strong> $donnees[marque]</p>");
-                        echo ("<p><strong>Nombre de places :</strong> $donnees[car_places]</p>");
-                        echo ("<p><strong>Etat :</strong> $donnees[car_etat]</p>");
+                        echo ("<p><strong>Type :</strong> $voiture->type</p>");
+                        echo ("<p><strong>Couleur :</strong> $voiture->couleur</p>");
+                        echo ("<p><strong>Marque :</strong> $voiture->marque</p>");
+                        echo ("<p><strong>Nombre de places :</strong> $voiture->nb_places</p>");
+                        echo ("<p><strong>Etat :</strong> $voiture->etat</p>");
                         
                         // Valeurs cachées du formulaire
                         echo("<form action=finalisation_reservation.php method=post>");
-                        echo ("<input type=\"hidden\" value=\"$lieu_choisi\" name=\"lieu_choisi\"> ");
-                        echo ("<input type=\"hidden\" value=$date_entree name=\"date_entree\"> ");
-                        echo ("<input type=\"hidden\" value=$date_sortie name=\"date_sortie\"> ");
-                        echo ("<input type=\"hidden\" value=\"$aeroport_choisi\" name=\"aeroport_choisi\"> ");
-                        echo ("<input type=\"hidden\" value=$_SESSION[pseudo] name=\"proprietaire\"> ");
-                        echo ("<input type=\"hidden\" value=$donnees[type] name=\"type_voiture\"> ");
-                        echo ("<input type=\"hidden\" value=$donnees[couleur] name=\"couleur\"> ");
-                        echo ("<input type=\"hidden\" value=$donnees[marque] name=\"marque\"> ");
-                        echo ("<input type=\"hidden\" value=$donnees[car_places] name=\"nb_places\"> ");
-                        echo ("<input type=\"hidden\" value=$donnees[car_etat] name=\"etat_voiture\"> ");
-                        echo ("<input type=\"hidden\" value=$prix_resa name=\"prix_resa\"> ");
+                        echo ("<input type=\"hidden\" value=\"$parking_id\" name=\"parking_id\"> ");
+                        echo ("<input type=\"hidden\" value=$date_entree name=\"debut_disponibilite\"> ");
+                        echo ("<input type=\"hidden\" value=$date_sortie name=\"fin_disponibilite\"> ");
+                        echo ("<input type=\"hidden\" value=$prix_resa name=\"prix\"> ");
                         echo ("<input type=\"hidden\" value=\"oui\" name=\"copie\"> ");
+
+                    echo ("<input type=\"hidden\" value=$voiture->id name=\"voiture_id\"> ");
                         
-                        echo("<label class=\"radio-inline\"><input type=\"checkbox\" name=\"choix_voiture\" value=\"$donnees[id]\">  Je choisis ce véhicule</label><br/>");
-                        
-                        echo("<button type=\"submit\" >Réservez le parking</button>");
+                        echo("<button type=\"submit\" class=\"btn btn-primary\">Réservez le parking avec ce véhicule</button>");
                         echo("</form>");
                         echo("</div>");
                         $nbr_vehicule++;
                               
                 }
-                
-                $reponse->closeCursor();
+
                 if ($nbr_vehicule == 0) {echo("<p>Aucun véhicule enregistré</p>");}
                 
                ?>
