@@ -1,8 +1,11 @@
 <?php
 
-function initGet($url) {
+function initGet($url, $header) {
     // configuration des options
     $ch = curl_init();
+    if ($header !== false) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+    }
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_HEADER, false);
     //So that curl_exec returns the contents of the cURL; rather than echoing it
