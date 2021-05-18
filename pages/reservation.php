@@ -123,8 +123,10 @@ try {
 
                 echo("<br/>");
                 echo("<form action=check_reservation.php method=post>
-                                                          <input type=hidden name=aeroport_choisi value=\"$parking->aeroport\" >
-                                                          <input type=hidden name=lieu_choisi value=\"$parking->lieu\" >
+                                                          <input type=hidden name=aeroport_id value=\"$parking->aeroport_id\" >
+                                                          <input type=hidden name=aeroport_nom value=\"$parking->aeroport_nom\" >
+                                                          <input type=hidden name=parking_id value=\"$parking->id\" >
+                                                          <input type=hidden name=lieu value=\"$parking->lieu\" >
                                                           <input type=hidden name=date_entree value=$date_entree_res >
                                                           <input type=hidden name=date_sortie value=$date_sortie_res >
                                                           <input type=hidden name=prix_choisi value=$parking->prix >
