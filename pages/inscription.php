@@ -42,7 +42,7 @@ session_start();
                 <div>
 
                     <label for="nom_user">Nom :</label>
-                    <input type="text" name="nom_user" placeholder="Roquet" required>
+                    <input type="text" name="nom" placeholder="Roquet" required>
 
                 </div>
                 
@@ -59,8 +59,8 @@ session_start();
                 
                 <div>
 
-                    <label for="id_user">Identifiant :</label>
-                    <input type="text" name="id_user" placeholder="Identifiant" required>
+                    <label for="id_user">Pseudoynyme :</label>
+                    <input type="text" name="pseudo" placeholder="Identifiant" required>
 
                 </div>
                 
@@ -74,14 +74,14 @@ session_start();
                 <div>
 
                     <label for="email">Email :</label>
-                    <input type="email" name="email_user" placeholder="michel.roquet@gmail.com" size="15">
+                    <input type="email" name="email" placeholder="michel.roquet@gmail.com" size="15">
 
                 </div>
                 
                 <div>
 
                     <label for="birthdate">Date de naissance :</label>
-                    <input type="date" name="birthdate" >
+                    <input type="date" name="naissance" >
 
                 </div>
                 
