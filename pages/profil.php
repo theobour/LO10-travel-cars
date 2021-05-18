@@ -89,12 +89,12 @@ try {
     // Changement du profil
     if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['email']) && isset($_POST['naissance']) && isset($_POST['telephone']) && isset($_POST['mdp'])) {
         $update = updateUserProfile($_SESSION['id'], array(
-                'prenom'=>$_POST['prenom'],
-                'nom'=>$_POST['nom'],
-                'email'=>$_POST['email'],
-                'naissance'=>$_POST['naissance'],
-                'telephone'=>$_POST['telephone'],
-                'password'=>$_POST['mdp'],
+            'prenom' => $_POST['prenom'],
+            'nom' => $_POST['nom'],
+            'email' => $_POST['email'],
+            'naissance' => $_POST['naissance'],
+            'telephone' => $_POST['telephone'],
+            'password' => $_POST['mdp'],
         ));
         if ($update) {
             echo("<p id=message_alerte>Ton profil a été modifié.</p>");
@@ -221,43 +221,23 @@ try {
 
         <summary><h2>Mes réservations de parking</h2></summary>
 
-        <?php $reponse = $bdd->query('SELECT id, date_entree, date_sortie, aeroport, lieu, location FROM vehicule WHERE proprietaire =\'' . $_SESSION[pseudo] . '\' ');
-
+        <?php $locations = getLocationFromUtilisateur($_SESSION['id']);
         $i3 = 0;
-        while ($donnees = $reponse->fetch()) {
+        foreach ($locations as $location) {
             echo("<div id=vehicule_profil>");
-            echo("<p><strong>Date d'entrée :</strong> $donnees[date_entree]</p>");
-            echo("<p><strong>Date de sortie :</strong> $donnees[date_sortie]</p>");
-            echo("<p><strong>Aéroport :</strong $donnees[aeroport]</p>");
-            echo("<p><strong>Lieu de stationnement :</strong> $donnees[lieu]</p>");
+            echo("<p><strong>Date d'entrée :</strong> $location->debut_disponibilite</p>");
+            echo("<p><strong>Date de sortie :</strong> $location->fin_disponibilite</p>");
+            echo("<p><strong>Aéroport :</strong> $location->nom</p>");
+            echo("<p><strong>Lieu de stationnement :</strong> $location->lieu</p>");
+            echo("<p><strong>Prix de la réservation :</strong> $location->prix_location €</p>");
             $i3 = $i3 + 1;
 
-            // Enregistrement du prix de la réservation
-
-            $reponse2 = $bdd->query('SELECT prix FROM site WHERE lieu =\'' . $donnees[lieu] . '\' ');
-
-            while ($donnees2 = $reponse2->fetch()) {
-                $date_entree = $donnees[date_entree];
-                $date_sortie = $donnees[date_sortie];
-
-                $date_entree_modif = strtotime($date_entree);
-                $date_sortie_modif = strtotime($date_sortie);
-                $nbjours_resa_stamp = $date_sortie_modif - $date_entree_modif;
-                $nbjours_resa = $nbjours_resa_stamp / 86400;
-
-                $lieu_choisi = $_POST[lieu_choisi];
-
-                $prix_resa = $donnees2[prix] * ($nbjours_resa + 1);
-
-                echo("<p><strong>Prix de la réservation :</strong> $prix_resa €</p>");
-
-            }
 
             // Pour supprimer une réservation de la liste
             echo("<form action=profil.php method=post>
-                                                              <input type=hidden name=numero_reservation value=\"$donnees[id]\" >
-                                                              <input type=hidden name=location_voiture value=\"$donnees[location]\" >
-                                                              <input type=hidden name=prix_resa value=\"$prix_resa\" >
+                                                              <input type=hidden name=numero_reservation value=\"$location->id\" >
+                    
+                                                              <input type=hidden name=prix_resa value=\"$location->prix_location\" >
                                                               <button type=submit >Annuler cette réservation</button>
                                                            </form></div>"
 
@@ -270,7 +250,7 @@ try {
             echo("<p>Tu n'as pas réservé de places de parking.</p>");
         }
 
-        $reponse->closeCursor(); ?>
+        ?>
 
     </details>
 

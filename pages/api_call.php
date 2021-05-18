@@ -212,6 +212,17 @@ function getReservationFromLocataire($locataire_id) {
         return false;
     }
 }
+function getLocationFromUtilisateur($utilisateur_id) {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initGet($url . '/location.php?utilisateur_id=' . $utilisateur_id, false);
+    curl_close($ch);
+    if ($status_code === 200) {
+        return json_decode($response);
+    } else {
+        return false;
+    }
+}
 function getParkingOfOneAeroport($aeroport_id) {
     GLOBAL $url;
     //The JSON data.
