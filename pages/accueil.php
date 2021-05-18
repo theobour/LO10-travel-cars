@@ -118,7 +118,7 @@ $pseudoadministrateur = "administrateur";
                 <div>
 
                     <label for="aeroport_resa">Aeroport choisi :</label>
-                    <select name="aeroport_resa" required>
+                    <select name="aeroport_id" required>
 
                         < <?php
                         $r = getAeroport();

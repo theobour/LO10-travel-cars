@@ -57,8 +57,13 @@ try {
 
     // Supprimer un véhicule
     if (isset($_POST["numero_voiture"])) {
-        $nb_modifs = $bdd->exec('DELETE FROM vehicule WHERE id = \'' . $_POST[numero_voiture] . '\' ');
-        echo("<p id=message_alerte>Ton véhicule a bien été supprimé.</p>");
+        $delete = deleteVoiture($_POST["numero_voiture"]);
+        if ($delete) {
+            echo("<p id=message_alerte>Ton véhicule a bien été supprimé.</p>");
+        } else {
+            echo("<p id=message_alerte>Ton véhicule n'a pas été supprimé.</p>");
+        }
+
     }
 
     // Supprimer une location
@@ -81,28 +86,24 @@ try {
         echo("<p id=message_alerte>Tu ne peux pas annuler ta réservation, ta voiture a déjà été louée.</p>");
     }
 
-    // Changement du prénom
-    if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['email']) && isset($_POST['naissance']) && isset($_POST['telephone'])) {
-        echo 'Votre profil a bien été modifié';
+    // Changement du profil
+    if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['email']) && isset($_POST['naissance']) && isset($_POST['telephone']) && isset($_POST['mdp'])) {
         $update = updateUserProfile($_SESSION['id'], array(
                 'prenom'=>$_POST['prenom'],
                 'nom'=>$_POST['nom'],
                 'email'=>$_POST['email'],
                 'naissance'=>$_POST['naissance'],
                 'telephone'=>$_POST['telephone'],
+                'password'=>$_POST['mdp'],
         ));
-    }
-
-
-    // Changement du téléphone
-    if (isset($_POST["mdp"])) {
-        $modif_mdp = $bdd->exec('UPDATE identifiant SET mdp =\'' . password_hash($_POST[mdp], PASSWORD_DEFAULT) . '\' WHERE pseudo =\'' . $_SESSION[pseudo] . '\'');
-        echo("<p id=message_alerte>Le mot de passe a été modifié.</p>");
+        if ($update) {
+            echo("<p id=message_alerte>Ton profil a été modifié.</p>");
+        } else {
+            echo("<p id=message_alerte>Ton profil n'a pas été modifié.</p>");
+        }
     }
 
     ?>
-
-    <!-- Informations sur mon profil -->
 
     <?php
 
@@ -131,16 +132,9 @@ try {
              <input type=email name=email value=\"$utilisateur->email\" >
              <input type=date name=naissance value=\"$utilisateur->naissance\" >
              <input type=tel name=telephone value=\"$utilisateur->telephone\" >
+               <input type=password name=mdp value='' >
             <button type=submit >Modifier mes informations</button>
             </form>"
-    );
-
-    // Modification du MOT DE PASSE
-
-    echo("<form action=profil.php method=post>
-            <input type=password name=mdp value=\"$_SESSION[pseudo]\" >
-            <button type=submit >Modifier mon mot de passe</button>
-            </form></div>"
     );
 
 

@@ -1,6 +1,7 @@
 <?php
 
-function initGet($url, $header) {
+function initGet($url, $header)
+{
     // configuration des options
     $ch = curl_init();
     if ($header !== false) {
@@ -12,10 +13,11 @@ function initGet($url, $header) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
     $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    return [$response,$status_code, $ch];
+    return [$response, $status_code, $ch];
 }
 
-function initPost($url, $jsonData) {
+function initPost($url, $jsonData)
+{
     $ch = curl_init($url);
 //Encode the array into JSON.
     $jsonDataEncoded = json_encode($jsonData);
@@ -30,10 +32,11 @@ function initPost($url, $jsonData) {
 //Execute the request
     $response = curl_exec($ch);
     $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    return [$response,$status_code, $ch];
+    return [$response, $status_code, $ch];
 }
 
-function initPut($url, $jsonData) {
+function initPut($url, $jsonData)
+{
     $ch = curl_init($url);
 //Encode the array into JSON.
     $jsonDataEncoded = json_encode($jsonData);
@@ -48,5 +51,20 @@ function initPut($url, $jsonData) {
 //Execute the request
     $response = curl_exec($ch);
     $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    return [$response,$status_code, $ch];
+    return [$response, $status_code, $ch];
+}
+
+function initDelete($url)
+{
+    $ch = curl_init($url);
+//Encode the array into JSON.
+//Tell cURL that we want to send a DELETE request.
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+
+    //So that curl_exec returns the contents of the cURL; rather than echoing it
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//Execute the request
+    $response = curl_exec($ch);
+    $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    return [$response, $status_code, $ch];
 }
