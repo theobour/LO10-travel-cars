@@ -7,12 +7,12 @@ if ($_GET['example'] == 1) {
     echo 'Lat : ' . $response->location->lat;
 }
 if ($_GET['example'] == 2) {
-    $response = getExample();
+    $response = getVehicule();
     echo 'Type : ' . $response[0]->type;
 }
 if ($_GET['example'] == 3) {
     $response = createExample(array(
-        'aeroport' => 'paris',
+        'aeroport' => 'Roissyy',
     ));
     if ($response) {
         echo 'Example crée';
@@ -22,7 +22,7 @@ if ($_GET['example'] == 3) {
 }
 if ($_GET['example'] == 4) {
     $response = updateExample(0,array(
-        'couleur' => 'rou',
+        'couleur' => 'rouge',
     ));
     if ($response) {
         echo 'Example update';

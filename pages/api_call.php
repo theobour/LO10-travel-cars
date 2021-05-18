@@ -18,6 +18,18 @@ function getExample()
     return $response;
 }
 
+function getVehicule()
+{
+    GLOBAL $url;
+    list($response, $status_code, $ch) = initGet($url . '/example.php', false);
+    curl_close($ch);
+    if ($status_code === 200) {
+        return json_decode($response);
+    } else {
+        return'Erreur dans le GET';
+    }
+}
+
 function getAirport()
 {
     GLOBAL $aero_url;
