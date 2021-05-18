@@ -235,5 +235,28 @@ function getParkingOfOneAeroport($aeroport_id) {
     }
 }
 
+function createAeroport($jsonData) {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initPost($url . '/aeroport.php', $jsonData);
+    curl_close($ch);
+    if ($status_code === 201) {
+        return true;
+    } else {
+        return false;
+    }
+}
+function createParking($jsonData) {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initPost($url . '/parking.php', $jsonData);
+    curl_close($ch);
+    if ($status_code === 201) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 ?>

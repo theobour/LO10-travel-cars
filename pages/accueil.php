@@ -6,7 +6,7 @@ session_start();
 
 $pseudo = $_SESSION['pseudo'];
 // Défition du pseudo de l'administrateur du site.
-$pseudoadministrateur = "administrateur";
+$pseudoadministrateur = "admin";
 
 ?>
 
