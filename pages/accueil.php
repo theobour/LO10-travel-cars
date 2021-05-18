@@ -1,23 +1,10 @@
 <?php
 
-    // Connection à la base de données
-
-    try
-    {
-        $bdd = new PDO('mysql:host=localhost;dbname=lo07;charset=utf8', 'root', 'CandiceAlcaraz32');
-    }
-
-    catch (Exception $e)
-    {
-            // Si connection marche pas, renvoie le message d'erreur
-            die('Erreur : ' . $e->getMessage());
-    }
-
     // Démarrage de la session
 
     session_start();
 
-    $pseudo = $_SESSION[pseudo];
+    $pseudo = $_SESSION['pseudo'];
     // Défition du pseudo de l'administrateur du site.
     $pseudoadministrateur = "administrateur";
 
@@ -50,13 +37,13 @@
 
             // On teste si la personne est connectée, sinon on cache le corps du texte et on la renvoie vers page de connexion.
 
-            if (!isset($_SESSION[prenom])) {
+            if (!isset($_SESSION['prenom'])) {
                 echo("<style>.container{display:none;}</style><br/>Tu n'es pas connecté(e)... <a href=connection.php>Me connecter</a>");
             }
 
             ?>
             
-            <h1 id="titre_accueil">Bienvenue, <?php echo ("$_SESSION[prenom] $_SESSION[nom_user]"); ?> </h1>
+            <h1 id="titre_accueil">Bienvenue, <?php echo $_SESSION["prenom"] . " " .  $_SESSION["nom_user"]; ?> </h1>
             
             <div id="texte_accueil">
                 
@@ -123,7 +110,8 @@
                             <label for="aeroport_resa">Aeroport choisi :</label>
                             <select name="aeroport_resa" required>
                                 
-                                <?php 
+                                <?php
+                                /**
                                 
                                 // On récupère tous les aéroports partenaires.
                                 $reponse = $bdd->query('SELECT aeroport FROM aeroport');
@@ -131,7 +119,9 @@
                                 while ($donnees = $reponse->fetch())
                                         {
                                                 echo ("<option value=\"$donnees[aeroport]\">$donnees[aeroport]</option>");
-                                        } ?>
+                                        }
+                                 **/
+                                ?>
                                 
                             </select>
 
@@ -175,14 +165,16 @@
                             <select name="aeroport_loc" required>
                                 
                                 <?php 
-                                
+                                /**
                                 // On récupère tous les aéroports partenaires.
                                 $reponse = $bdd->query('SELECT aeroport FROM aeroport');
 
                                 while ($donnees = $reponse->fetch())
                                         {
                                                 echo ("<option value=\"$donnees[aeroport]\">$donnees[aeroport]</option>");
-                                        } ?>
+                                        }
+                                 **/
+                                ?>
                                 
                             </select>
 

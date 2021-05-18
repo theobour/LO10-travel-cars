@@ -1,8 +1,8 @@
 <?php
 
 // Démarrage session + connexion BDD
-$url = "http://localhost:8890/project/LO10-travel-cars/pages";
 require_once('./api_call.php');
+$url_to_redirect = "http://localhost:8890/project/LO10-travel-cars/pages";
 session_start();
 unset ($_SESSION['pseudo']);
 
@@ -16,15 +16,15 @@ if (isset($_POST['id_user']) && isset($_POST['mdp'])) {
         $_SESSION['pseudo'] = $r->pseudo;
         $_SESSION['connection'] = "non";
         unset($_SESSION['connection']);
-        header('Location: ' . $url . '/accueil.php');
+        header('Location: ' . $url_to_redirect . '/accueil.php');
         exit();
     } else {
         $_SESSION['connection'] = "non";
-        header('Location: ' . $url . '/connection.php');
+        header('Location: ' . $url_to_redirect . '/connection.php');
         exit();
     }
 } else {
-    header('Location: ' . $url . '/connection.php');
+    header('Location: ' . $url_to_redirect . '/connection.php');
 }
 
 
