@@ -112,7 +112,6 @@ try {
             <?php
             echo $_POST["date_entree_loc"];
             $locations = getLocation($_POST["aeroport_loc"], $_POST["date_entree_loc"], $_POST["date_sortie_loc"]);
-            var_dump($locations);
             // Récupération des différents véhicules qui vérifient les conditions
 
             $nombre_locations = 0;
@@ -141,11 +140,13 @@ try {
 
 
                 echo("<form action=check_location.php method=post>
-                                                          <input type=hidden name=numero_vehicule value=\"$location->id\" >
                                                           <input type=hidden name=aeroport_choisi value=\"$aeroport\" >
                                                           <input type=hidden name=date_entree value=$date_entree_loc >
                                                           <input type=hidden name=date_sortie value=$date_sortie_loc >
                                                           <input type=hidden name=prix_loc value=$prix_loc >
+                                                          <input type=hidden name=voiture_choisi value=$location->voiture_id >
+                                                          <input type=hidden name=parking_choisi value=$parking->id >
+                                                          <input type=hidden name=lieu value=$location->lieu >
                                                           <button type=submit >Choisir ce véhicule</button>
                                                        </form>"
 

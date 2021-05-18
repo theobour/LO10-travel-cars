@@ -22,7 +22,6 @@ function getVehicule()
 {
     GLOBAL $url;
     list($response, $status_code, $ch) = initGet($url . '/example.php', false);
-    var_dump(curl_getinfo($ch));
     curl_close($ch);
     if ($status_code === 200) {
         return json_decode($response);
@@ -109,6 +108,17 @@ function getLocation($aerport_id, $date_debut,$date_fin) {
         return false;
     }
 }
+function getOneVoiture($voiture_id) {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initGet($url . '/voiture.php?id=' . $voiture_id, false);
+    curl_close($ch);
+    if ($status_code === 200) {
+        return json_decode($response);
+    } else {
+        return false;
+    }
+}
 function getOneParking($parking_id) {
     GLOBAL $url;
     //The JSON data.
@@ -116,6 +126,18 @@ function getOneParking($parking_id) {
     curl_close($ch);
     if ($status_code === 200) {
         return json_decode($response);
+    } else {
+        return false;
+    }
+}
+
+function createReservation($jsonData) {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initPost($url . '/reservation.php', $jsonData);
+    curl_close($ch);
+    if ($status_code === 201) {
+        return true;
     } else {
         return false;
     }

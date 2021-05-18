@@ -3,7 +3,6 @@
 // Connexion à la base de données
 require_once('./api_call.php');
 $r = getVehicule();
-var_dump($r);
 // En cas de déconnexion, on détruit les variables de session : utilisateur n'est plus identifié.
 ?>
 
