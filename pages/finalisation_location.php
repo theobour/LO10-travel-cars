@@ -19,11 +19,6 @@ $r = createReservation(array(
     'date_debut' => $date_debut,
     'date_fin' => $date_fin
 ));
-if ($r) {
-    echo 'gg';
-} else {
-    echo 'nn';
-}
 
 
 ?>
@@ -65,6 +60,9 @@ if ($r) {
             <center><a href="index.php">Déconnexion</a></center>
         </div>
     </div>
+    <?php
+    if ($r) {
+        ?>
 
     <div id="message_finalisation">
 
@@ -75,6 +73,13 @@ if ($r) {
         <p><a href='accueil.php'>Retourner à l'accueil</a> - <a href='profil.php'>Accéder à mon compte</a></p>
 
     </div>
+    <?php } else { ?>
+        <div id="message_finalisation">
+
+            <p>Un problème est survenu lors de l'ajout</p>
+
+        </div>
+    <?php }?>
 
     <div class="row" id="footer_connexion">
         <div class="col-sm-12"><a href="credit.php">Plus d'informations</a></div>
