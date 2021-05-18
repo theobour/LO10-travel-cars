@@ -8,12 +8,14 @@ function getExample()
 {
     GLOBAL $url;
     list($response, $status_code, $ch) = initGet($url . '/example.php', false);
+    $response = json_decode($response);
     if ($status_code === 200) {
-        var_dump(json_decode($response));
+        var_dump($response);
     } else {
         echo 'Erreur dans le GET';
     }
     curl_close($ch);
+    return $response;
 }
 
 function getAirport()
@@ -27,42 +29,35 @@ function getAirport()
     } else {
         echo 'Erreur dans le GET';
     }
-    echo 'Country : ' . $response->icao . '<br>';
-    echo 'Lat : ' . $response->location->lat;
     curl_close($ch);
+    return $response;
 }
 
-function createExample()
+function createExample($jsonData)
 {
     GLOBAL $url;
     //The JSON data.
-    $jsonData = array(
-        'aeroport' => 'MyUsername',
-    );
     list($response, $status_code, $ch) = initPost($url . '/example.php', $jsonData);
-    if ($status_code === 201) {
-        var_dump($response);
-    } else {
-        echo 'Erreur dans le POST';
-    }
     curl_close($ch);
+    if ($status_code === 201) {
+        return true;
+    } else {
+        return false;
+    }
 }
-function updateExample($id)
+function updateExample($id, $jsonData)
 {
     GLOBAL $url;
     //The JSON data.
-    $jsonData = array(
-        'couleur' => 'rouge',
-    );
     list($response, $status_code, $ch) = initPut($url . '/example.php?id=' . $id, $jsonData);
     var_dump(curl_getinfo($ch));
-    if ($status_code === 200) {
-        var_dump($response);
-    } else {
-        echo 'Erreur dans le PUT';
-    }
     curl_close($ch);
+    if ($status_code === 200) {
+        return true;
+    } else {
+        return false;
+    }
+
 }
 
-getAirport();
 ?>
