@@ -75,7 +75,6 @@ function updateExample($id, $jsonData)
 function getAeroport() {
     GLOBAL $url;
     list($response, $status_code, $ch) = initGet($url . '/aeroport.php', false);
-    var_dump(curl_getinfo($ch));
     curl_close($ch);
     if ($status_code === 200) {
         return json_decode($response);
@@ -98,5 +97,29 @@ function login($pseudo, $password) {
         return false;
     }
 }
+
+function getLocation($aerport_id, $date_debut,$date_fin) {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initGet($url . '/location.php?aeroport_id=' . $aerport_id . '&date_debut=' . $date_debut . '&date_fin=' . $date_fin, false);
+    curl_close($ch);
+    if ($status_code === 200) {
+        return json_decode($response);
+    } else {
+        return false;
+    }
+}
+function getOneParking($parking_id) {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initGet($url . '/parking.php?id=' . $parking_id, false);
+    curl_close($ch);
+    if ($status_code === 200) {
+        return json_decode($response);
+    } else {
+        return false;
+    }
+}
+
 
 ?>

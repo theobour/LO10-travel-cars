@@ -124,7 +124,7 @@ $pseudoadministrateur = "administrateur";
                         $r = getAeroport();
 
                         foreach ($r as $aeroport) {
-                            echo("<option value=\"$aeroport->nom\">$aeroport->nom</option>");
+                            echo("<option value=\"$aeroport->id\">$aeroport->nom</option>");
                         }
                         ?>
 
@@ -173,7 +173,7 @@ $pseudoadministrateur = "administrateur";
                         $r = getAeroport();
 
                         foreach ($r as $aeroport) {
-                            echo("<option value=\"$aeroport->nom\">$aeroport->nom</option>");
+                            echo("<option value=\"$aeroport->id\">$aeroport->nom</option>");
                         }
                         ?>
 
