@@ -22,6 +22,7 @@ function getVehicule()
 {
     GLOBAL $url;
     list($response, $status_code, $ch) = initGet($url . '/example.php', false);
+    var_dump(curl_getinfo($ch));
     curl_close($ch);
     if ($status_code === 200) {
         return json_decode($response);
@@ -62,7 +63,7 @@ function updateExample($id, $jsonData)
     GLOBAL $url;
     //The JSON data.
     list($response, $status_code, $ch) = initPut($url . '/example.php?id=' . $id, $jsonData);
-    var_dump(curl_getinfo($ch));
+
     curl_close($ch);
     if ($status_code === 200) {
         return true;
@@ -70,6 +71,22 @@ function updateExample($id, $jsonData)
         return false;
     }
 
+}
+
+function login($pseudo, $password) {
+    GLOBAL $url;
+    //The JSON data.
+    $jsonData = array(
+        "pseudo" => $pseudo,
+        "password" => $password
+    );
+    list($response, $status_code, $ch) = initPost($url . '/auth.php', $jsonData);
+    curl_close($ch);
+    if ($status_code === 201) {
+        return json_decode($response);
+    } else {
+        return false;
+    }
 }
 
 ?>
