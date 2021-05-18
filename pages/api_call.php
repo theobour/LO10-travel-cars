@@ -190,6 +190,17 @@ function createReservation($jsonData) {
         return false;
     }
 }
+function createLocation($jsonData) {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initPost($url . '/location.php', $jsonData);
+    curl_close($ch);
+    if ($status_code === 201) {
+        return true;
+    } else {
+        return false;
+    }
+}
 function getReservationFromLocataire($locataire_id) {
     GLOBAL $url;
     //The JSON data.

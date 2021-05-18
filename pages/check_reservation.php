@@ -125,14 +125,14 @@ $prix_resa = $_POST["prix_choisi"]*($nbjours_resa+1);
                         // Valeurs cachées du formulaire
                         echo("<form action=finalisation_reservation.php method=post>");
                         echo ("<input type=\"hidden\" value=\"$parking_id\" name=\"parking_id\"> ");
-                        echo ("<input type=\"hidden\" value=$date_entree name=\"date_entree\"> ");
-                        echo ("<input type=\"hidden\" value=$date_sortie name=\"date_sortie\"> ");
+                        echo ("<input type=\"hidden\" value=$date_entree name=\"debut_disponibilite\"> ");
+                        echo ("<input type=\"hidden\" value=$date_sortie name=\"fin_disponibilite\"> ");
                         echo ("<input type=\"hidden\" value=$prix_resa name=\"prix\"> ");
                         echo ("<input type=\"hidden\" value=\"oui\" name=\"copie\"> ");
+
+                    echo ("<input type=\"hidden\" value=$voiture->id name=\"voiture_id\"> ");
                         
-                        echo("<label class=\"radio-inline\"><input type=\"checkbox\" name=\"voiture_id\" value=\"$voiture->id\">  Je choisis ce véhicule</label><br/>");
-                        
-                        echo("<button type=\"submit\" class=\"btn btn-primary\">Réservez le parking</button>");
+                        echo("<button type=\"submit\" class=\"btn btn-primary\">Réservez le parking avec ce véhicule</button>");
                         echo("</form>");
                         echo("</div>");
                         $nbr_vehicule++;
