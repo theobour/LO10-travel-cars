@@ -123,7 +123,7 @@ function deleteVoiture($voiture_id) {
     GLOBAL $url;
     //The JSON data.
     list($response, $status_code, $ch) = initDelete($url . '/voiture.php?id=' . $voiture_id);
-    var_dump(curl_getinfo($ch));
+    curl_close($ch);
     curl_close($ch);
 
     if ($status_code === 200) {
@@ -272,6 +272,29 @@ function createParking($jsonData) {
     GLOBAL $url;
     //The JSON data.
     list($response, $status_code, $ch) = initPost($url . '/parking.php', $jsonData);
+    curl_close($ch);
+    if ($status_code === 201) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function createUser($jsonData) {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initPost($url . '/signin.php', $jsonData);
+    curl_close($ch);
+    if ($status_code === 201) {
+        return true;
+    } else {
+        return false;
+    }
+}
+function createVoiture($jsonData) {
+    GLOBAL $url;
+    //The JSON data.
+    list($response, $status_code, $ch) = initPost($url . '/voiture.php', $jsonData);
     curl_close($ch);
     if ($status_code === 201) {
         return true;

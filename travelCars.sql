@@ -1,137 +1,284 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.10
--- http://www.phpmyadmin.net
+-- version 4.9.7
+-- https://www.phpmyadmin.net/
 --
--- Client :  localhost:8889
--- Généré le :  Lun 05 Avril 2021 à 18:42
--- Version du serveur :  5.5.42
--- Version de PHP :  7.0.8
+-- Host: localhost:8889
+-- Generation Time: May 19, 2021 at 12:23 PM
+-- Server version: 5.7.32
+-- PHP Version: 7.4.12
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET
+SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET
+time_zone = "+00:00";
 
 --
--- Base de données :  `lo07`
+-- Database: `lo07`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `aeroport`
+-- Table structure for table `aeroport`
 --
 
-CREATE TABLE `aeroport` (
-  `aeroport` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `aeroport`
+(
+    `id`   int(11) NOT NULL,
+    `nom`  varchar(255) NOT NULL,
+    `code` varchar(10)  NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `aeroport`
+-- Dumping data for table `aeroport`
 --
 
-INSERT INTO `aeroport` (`aeroport`) VALUES
-('Orly'),
-('Roissy');
+INSERT INTO `aeroport` (`id`, `nom`, `code`)
+VALUES (1, 'Roissy', 'CDG'),
+       (2, 'Orly', 'ORY'),
+       (3, 'Heathrow', 'LHR');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `identifiant`
+-- Table structure for table `location`
 --
 
-CREATE TABLE `identifiant` (
-  `mdp` varchar(300) NOT NULL,
-  `prenom` varchar(50) NOT NULL,
-  `nom` varchar(50) NOT NULL,
-  `email` varchar(70) NOT NULL,
-  `birthdate` date NOT NULL,
-  `telephone` int(11) NOT NULL,
-  `pseudo` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `location`
+(
+    `id`                  int(11) NOT NULL,
+    `voiture_id`          int(11) DEFAULT NULL,
+    `parking_id`          int(11) DEFAULT NULL,
+    `debut_disponibilite` date DEFAULT NULL,
+    `fin_disponibilite`   date DEFAULT NULL,
+    `prix`                int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `identifiant`
+-- Dumping data for table `location`
 --
 
-INSERT INTO `identifiant` (`mdp`, `prenom`, `nom`, `email`, `birthdate`, `telephone`, `pseudo`) VALUES
-('$2y$10$YGslrwCuS3P4GKD5Ez6T/O8jgqehUsLSynaYrgpfNEPrL/eJoE5Da', 'Travelcars', 'Administrateur', 'admin@travelcars.com', '1999-01-01', 787641123, 'administrateur'),
-('$2y$10$uUold8KAdaM9zqeCLmgQAuPwUql7Kh0X48sNtdNKoFgR1f./YsorW', 'Candice', 'Alcaraz', 'candalc@gmail.com', '1999-10-01', 657456341, 'candalc'),
-('$2y$10$BJtecAxq.zR.SEX2HSOAkeBeDXQuVXuiQAMU9.WVpGVB9FhzLPAI6', 'Lara', 'Croft', 'laracroft@gmail.fr', '1977-02-01', 677889935, 'laracroft');
+INSERT INTO `location` (`id`, `voiture_id`, `parking_id`, `debut_disponibilite`, `fin_disponibilite`, `prix`)
+VALUES (1, 1, 1, '2021-05-16', '2021-05-22', 0),
+       (2, 1, 1, '2021-05-26', '2021-05-27', 20);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `site`
+-- Table structure for table `parking`
 --
 
-CREATE TABLE `site` (
-  `lieu` varchar(50) NOT NULL,
-  `aeroport` varchar(50) NOT NULL,
-  `nb_places` int(11) NOT NULL,
-  `prix` int(11) NOT NULL,
-  `adresse` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `parking`
+(
+    `id`          int(11) NOT NULL,
+    `aeroport_id` int(11) NOT NULL,
+    `adresse`     varchar(255) DEFAULT NULL,
+    `lieu`        varchar(255) DEFAULT NULL,
+    `nb_places`   int(11) DEFAULT NULL,
+    `prix`        int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `site`
+-- Dumping data for table `parking`
 --
 
-INSERT INTO `site` (`lieu`, `aeroport`, `nb_places`, `prix`, `adresse`) VALUES
-('Parking Ibis Budget', 'Orly', 10, 9, '45, boulevard des Champs'),
-('Parking P2', 'Roissy', 79, 7, '25, rue des Champs-Elysées'),
-('Parking P4', 'Orly', 150, 8, '4, allée de Orly Centre'),
-('Parking PECO', 'Orly', 199, 5, '6b, rue de l''Aeroport'),
-('Parking Premium', 'Roissy', 45, 32, '21, rue de Charles de Gaulle');
+INSERT INTO `parking` (`id`, `aeroport_id`, `adresse`, `lieu`, `nb_places`, `prix`)
+VALUES (1, 1, '21 rue', 'Parking Aérien', 120, 10),
+       (3, 1, 'roissy rue', 'parking 8', 20, 31);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `vehicule`
+-- Table structure for table `reservation`
 --
 
-CREATE TABLE `vehicule` (
-  `id` int(11) NOT NULL,
-  `type` varchar(20) NOT NULL,
-  `couleur` varchar(20) NOT NULL,
-  `marque` varchar(20) NOT NULL,
-  `car_places` varchar(20) NOT NULL,
-  `car_etat` varchar(20) NOT NULL,
-  `date_entree` date NOT NULL,
-  `date_sortie` date NOT NULL,
-  `location` varchar(20) NOT NULL,
-  `aeroport` varchar(50) NOT NULL,
-  `proprietaire` varchar(50) NOT NULL,
-  `copie` varchar(20) NOT NULL,
-  `locataire` varchar(50) NOT NULL,
-  `lieu` varchar(50) NOT NULL,
-  `datedebut` date NOT NULL,
-  `datefin` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `reservation`
+(
+    `id`           int(11) NOT NULL,
+    `voiture_id`   int(11) DEFAULT NULL,
+    `locataire_id` int(11) DEFAULT NULL,
+    `parking_id`   int(11) DEFAULT NULL,
+    `date_debut`   date DEFAULT NULL,
+    `date_fin`     date DEFAULT NULL,
+    `prix`         int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `vehicule`
+-- Dumping data for table `reservation`
 --
 
-INSERT INTO `vehicule` (`id`, `type`, `couleur`, `marque`, `car_places`, `car_etat`, `date_entree`, `date_sortie`, `location`, `aeroport`, `proprietaire`, `copie`, `locataire`, `lieu`, `datedebut`, `datefin`) VALUES
-(0, 'Familiale', 'Grise', 'Kia', '6 et plus', 'Très Bon', '2020-06-01', '2020-06-15', 'non', 'Orly', 'candalc', 'non', 'administrateur', 'Parking PECO', '2020-06-01', '2020-06-15');
+INSERT INTO `reservation` (`id`, `voiture_id`, `locataire_id`, `parking_id`, `date_debut`, `date_fin`, `prix`)
+VALUES (1, 1, 1, 1, '2021-05-19', '2021-05-21', 25),
+       (2, 1, 1, 1, '2021-05-19', '2021-05-20', 30);
+
+-- --------------------------------------------------------
 
 --
--- Index pour les tables exportées
+-- Table structure for table `utilisateur`
+--
+
+CREATE TABLE `utilisateur`
+(
+    `id`        int(11) NOT NULL,
+    `prenom`    varchar(255) DEFAULT NULL,
+    `nom`       varchar(255) DEFAULT NULL,
+    `email`     varchar(255) DEFAULT NULL,
+    `telephone` varchar(255) DEFAULT NULL,
+    `pseudo`    varchar(255) DEFAULT NULL,
+    `mdp`       text,
+    `naissance` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`id`, `prenom`, `nom`, `email`, `telephone`, `pseudo`, `mdp`, `naissance`)
+VALUES (1, 'admin', 'adminn', 'admin@admin.fr', '0689212223', 'admin', '21232f297a57a5a743894a0e4a801fc3',
+        '2019-05-05'),
+       (3, 'aa', 'bb', 'dd@dd.fr', '1904884', 'cc', '1aabac6d068eef6a7bad3fdf50a05cc8', '2021-05-11'),
+       (4, 'aa', 'bb', 'dd@dd.fr', '1904884', 'cc', '1aabac6d068eef6a7bad3fdf50a05cc8', '2021-05-11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voiture`
+--
+
+CREATE TABLE `voiture`
+(
+    `id`              int(11) NOT NULL,
+    `proprietaire_id` int(11) DEFAULT NULL,
+    `couleur`         varchar(255) DEFAULT NULL,
+    `marque`          varchar(255) DEFAULT NULL,
+    `nb_place`        int(11) DEFAULT NULL,
+    `etat`            varchar(255) DEFAULT NULL,
+    `type`            varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `voiture`
+--
+
+INSERT INTO `voiture` (`id`, `proprietaire_id`, `couleur`, `marque`, `nb_place`, `etat`, `type`)
+VALUES (1, 1, 'a', 'a', 1, 'd', 'a');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `aeroport`
+-- Indexes for table `aeroport`
 --
 ALTER TABLE `aeroport`
-  ADD PRIMARY KEY (`aeroport`);
+    ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `identifiant`
+-- Indexes for table `location`
 --
-ALTER TABLE `identifiant`
-  ADD PRIMARY KEY (`pseudo`);
+ALTER TABLE `location`
+    ADD PRIMARY KEY (`id`),
+  ADD KEY `voiture_id` (`voiture_id`),
+  ADD KEY `parking_id` (`parking_id`);
 
 --
--- Index pour la table `site`
+-- Indexes for table `parking`
 --
-ALTER TABLE `site`
-  ADD PRIMARY KEY (`lieu`);
+ALTER TABLE `parking`
+    ADD PRIMARY KEY (`id`),
+  ADD KEY `aeroport_id` (`aeroport_id`);
+
+--
+-- Indexes for table `reservation`
+--
+ALTER TABLE `reservation`
+    ADD PRIMARY KEY (`id`),
+  ADD KEY `voiture_id` (`voiture_id`),
+  ADD KEY `locataire_id` (`locataire_id`),
+  ADD KEY `parking_id` (`parking_id`);
+
+--
+-- Indexes for table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+    ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `voiture`
+--
+ALTER TABLE `voiture`
+    ADD PRIMARY KEY (`id`),
+  ADD KEY `proprietaire_id` (`proprietaire_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `aeroport`
+--
+ALTER TABLE `aeroport`
+    MODIFY `id` int (11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `location`
+--
+ALTER TABLE `location`
+    MODIFY `id` int (11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `parking`
+--
+ALTER TABLE `parking`
+    MODIFY `id` int (11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `reservation`
+--
+ALTER TABLE `reservation`
+    MODIFY `id` int (11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+    MODIFY `id` int (11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `voiture`
+--
+ALTER TABLE `voiture`
+    MODIFY `id` int (11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `location`
+--
+ALTER TABLE `location`
+    ADD CONSTRAINT `location_ibfk_1` FOREIGN KEY (`voiture_id`) REFERENCES `voiture` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `location_ibfk_2` FOREIGN KEY (`parking_id`) REFERENCES `parking` (`id`) ON
+DELETE
+CASCADE;
+
+--
+-- Constraints for table `parking`
+--
+ALTER TABLE `parking`
+    ADD CONSTRAINT `parking_ibfk_1` FOREIGN KEY (`aeroport_id`) REFERENCES `aeroport` (`id`);
+
+--
+-- Constraints for table `reservation`
+--
+ALTER TABLE `reservation`
+    ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`voiture_id`) REFERENCES `voiture` (`id`) ON DELETE CASCADE ,
+  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`locataire_id`) REFERENCES `utilisateur` (`id`),
+  ADD CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`parking_id`) REFERENCES `parking` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `voiture`
+--
+ALTER TABLE `voiture`
+    ADD CONSTRAINT `voiture_ibfk_1` FOREIGN KEY (`proprietaire_id`) REFERENCES `utilisateur` (`id`);

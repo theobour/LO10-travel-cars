@@ -145,6 +145,7 @@ try {
     <details id="partie_profil">
 
         <summary><h2>Mes véhicules</h2></summary>
+        <a class="btn-primary btn" href="create_car.php">Créer un nouveau véhicule</a>
 
         <?php $voitures = getVoitureFromUtilisateur($_SESSION['id']);
         $i1 = 0;
