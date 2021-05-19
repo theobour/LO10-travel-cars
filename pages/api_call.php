@@ -124,6 +124,8 @@ function deleteVoiture($voiture_id) {
     //The JSON data.
     list($response, $status_code, $ch) = initDelete($url . '/voiture.php?id=' . $voiture_id);
     curl_close($ch);
+    curl_close($ch);
+
     if ($status_code === 200) {
         return true;
     } else {
@@ -277,6 +279,7 @@ function createParking($jsonData) {
         return false;
     }
 }
+
 function createUser($jsonData) {
     GLOBAL $url;
     //The JSON data.
