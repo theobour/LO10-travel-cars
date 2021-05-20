@@ -2,6 +2,8 @@
 
 // Functions
 
+// ---------------- GET ACCESS TOKEN ------------------------
+
 function getToken(){
     
     $ch = curl_init();
@@ -33,6 +35,8 @@ function getToken(){
 	curl_close ($ch);
     
 }
+
+// ---------------- GET LOCATIONS FROM CITY ------------------------
 
 function getLocFromCity($oAuthToken, $city){
 
@@ -86,6 +90,75 @@ function getLocFromCity($oAuthToken, $city){
 	
 }
 
+// ---------------- GET LOCATIONS FROM DATES ------------------------
+
+function getLocFromInfos($oAuthToken, $arrayInputs){
+
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://stage.abgapiservices.com:443/cars/catalog/v1/vehicles?brand=Avis&pickup_date=' .$arrayInputs[0]. '&pickup_location=' .$arrayInputs[1]. '&dropoff_date=' .$arrayInputs[2]. '&dropoff_location=' .$arrayInputs[3]. '&country_code=' .$arrayInputs[4]);
+
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+
+	$headers = array();
+	$headers[] = 'Accept: application/json';
+	$headers[] = 'Client_id: 8e16ee49';
+	$headers[] = 'Authorization: Bearer '  . $oAuthToken ;
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+	$result = curl_exec($ch);
+	if (curl_errno($ch)) {
+	    echo 'Error:' . curl_error($ch);
+	} else
+	{
+	    $json = json_decode($result, true);
+	    //var_dump($json);
+
+	}
+	
+	$numberOfLoc = sizeof($json['vehicles']);
+	$initTable = 0;
+
+	for ($i=0 ; $i<$numberOfLoc ; $i++) {
+
+				$tableLoc[$initTable][0] = $json['vehicles'][$i]['category']['name'];
+				$tableLoc[$initTable][1] = $json['vehicles'][$i]['category']['model'];
+				$tableLoc[$initTable][2] = $json['vehicles'][$i]['category']['vehicle_class_name'];
+				$tableLoc[$initTable][3] = $json['vehicles'][$i]['capacity']['seats'];
+				$tableLoc[$initTable][4] = $json['vehicles'][$i]['rate_totals']['pay_later']['vehicle_total'];
+				$tableLoc[$initTable][5] = $json['vehicles'][$i]['rate_totals']['pay_later']['reservation_total'];
+
+				$initTable = $initTable + 1;
+
+	}
+
+	curl_close ($ch);
+
+	return $tableLoc;
+	
+}
+
+// ---------------- PRINT LOCATIONS FROM DATES ------------------------
+
+function printLocFromInfos($tableLoc) {
+
+	$numberLoc = sizeof($tableLoc);
+
+	for ($i=0 ; $i<$numberLoc ; $i++) {
+
+						echo "Type du véhicule : " .$tableLoc[$i][0]. "</br>";
+						echo "Modèle du véhicule : " .$tableLoc[$i][1]. "</br>";
+						echo "Classe : " .$tableLoc[$i][2]. "</br>";
+						echo "Nombre de places : " .$tableLoc[$i][3]. "</br>";
+						echo "Prix de la réservation HT (hors frais de services) : " .$tableLoc[$i][4]. "</br>";
+						echo "Prix de la réservation TTC : " .$tableLoc[$i][5]. "</br><br/>";
+					
+	}
+
+}
+
+// ---------------- PRINT LOCATIONS FROM CITY ------------------------
 
 function printLocFromCity($tableLocCity, $displayAllLoc) {
 
@@ -133,13 +206,18 @@ function printLocFromCity($tableLocCity, $displayAllLoc) {
 
 }
 
-// Test appel des fonctions
+// ---------------- DEF DES VARIABLES ------------------------
 
 $oAuthToken = getToken();
 $city = "Paris";
 $displayAllLoc = false;
+$arrayInputs = array("2021-05-30T00%3A00%3A00", "EWR", "2021-12-31T00%3A00%3A00", "EWR", "US");
 
-printLocFromCity(getLocFromCity($oAuthToken, $city), $displayAllLoc);
+// ---------------- APPEL DES FONCTIONS ------------------------
+
+//printLocFromCity(getLocFromCity($oAuthToken, $city), $displayAllLoc);
+
+printLocFromInfos(getLocFromInfos($oAuthToken, $arrayInputs));
 
 ?>
 
