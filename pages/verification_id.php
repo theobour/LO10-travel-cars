@@ -15,6 +15,7 @@ if (isset($_POST['id_user']) && isset($_POST['mdp'])) {
         $_SESSION['nom_user'] = $r->nom;
         $_SESSION['pseudo'] = $r->pseudo;
         $_SESSION['id'] = $r->id;
+        $_SESSION['auth'] = base64_encode($r->pseudo . ':' . $_POST['mdp']);
         $_SESSION['connection'] = "non";
         unset($_SESSION['connection']);
         header('Location: ' . $url_to_redirect . '/accueil.php');
