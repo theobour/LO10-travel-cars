@@ -74,10 +74,9 @@ function updateExample($id, $jsonData)
 function getAeroport() {
     GLOBAL $url;
     list($response, $status_code, $ch) = initGet($url . '/aeroport.php', false, false);
-    var_dump($response);
     curl_close($ch);
     if ($status_code === 200) {
-        return $response;
+        return json_decode($response);
     } else {
         return'Erreur dans le GET';
     }

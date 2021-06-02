@@ -128,9 +128,6 @@ $pseudoadministrateur = "admin";
                         ?>
                     </select>
                 </div>
-                <?php
-                var_dump($r);
-                ?>
 
                 <div>
 
