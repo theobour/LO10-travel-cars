@@ -120,17 +120,17 @@ $pseudoadministrateur = "admin";
                     <label for="aeroport_resa">Aeroport choisi :</label>
                     <select name="aeroport_id" required>
 
-                        < <?php
-                        $r = getAeroport(false);
-
+                        <?php
+                        $r = getAeroport();
                         foreach ($r as $aeroport) {
                             echo("<option value=\"$aeroport->id\">$aeroport->nom</option>");
                         }
                         ?>
-
                     </select>
-
                 </div>
+                <?php
+                var_dump($r);
+                ?>
 
                 <div>
 
