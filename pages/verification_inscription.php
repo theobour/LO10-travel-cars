@@ -44,6 +44,7 @@ if ($creation) {
     $_SESSION['nom_user'] = $r->nom;
     $_SESSION['pseudo'] = $r->pseudo;
     $_SESSION['id'] = $r->id;
+    $_SESSION['auth'] = base64_encode($pseudo . ':' . $mdp);
     header('Location: ' . $url_to_redirect . '/accueil.php');
 } else {
     header('Location: ' . $url_to_redirect . '/inscription.php');

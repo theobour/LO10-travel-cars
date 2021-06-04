@@ -1,11 +1,15 @@
 <?php
+session_start();
 
-function initGet($url, $header)
+function initGet($url, $header, $auth)
 {
     // configuration des options
     $ch = curl_init();
     if ($header !== false) {
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+    }
+    if ($auth !== false) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . $_SESSION['auth']));
     }
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_HEADER, false);
@@ -16,7 +20,7 @@ function initGet($url, $header)
     return [$response, $status_code, $ch];
 }
 
-function initPost($url, $jsonData)
+function initPost($url, $jsonData, $auth)
 {
     $ch = curl_init($url);
 //Encode the array into JSON.
@@ -27,6 +31,9 @@ function initPost($url, $jsonData)
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
 //Set the content type to application/json
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    if ($auth !== false) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . $_SESSION['auth']));
+    }
     //So that curl_exec returns the contents of the cURL; rather than echoing it
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 //Execute the request
@@ -35,7 +42,7 @@ function initPost($url, $jsonData)
     return [$response, $status_code, $ch];
 }
 
-function initPut($url, $jsonData)
+function initPut($url, $jsonData, $auth)
 {
     $ch = curl_init($url);
 //Encode the array into JSON.
@@ -46,6 +53,9 @@ function initPut($url, $jsonData)
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
 //Set the content type to application/json
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    if ($auth !== false) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . $_SESSION['auth']));
+    }
     //So that curl_exec returns the contents of the cURL; rather than echoing it
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 //Execute the request
@@ -54,13 +64,15 @@ function initPut($url, $jsonData)
     return [$response, $status_code, $ch];
 }
 
-function initDelete($url)
+function initDelete($url, $auth)
 {
     $ch = curl_init($url);
 //Encode the array into JSON.
 //Tell cURL that we want to send a DELETE request.
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-
+    if ($auth !== false) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . $_SESSION['auth']));
+    }
     //So that curl_exec returns the contents of the cURL; rather than echoing it
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 //Execute the request
