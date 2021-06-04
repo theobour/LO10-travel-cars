@@ -44,36 +44,9 @@ function getAirport()
     curl_close($ch);
     return $response;
 }
-
-function createExample($jsonData)
-{
-    GLOBAL $url;
-    //The JSON data.
-    list($response, $status_code, $ch) = initPost($url . '/example.php', $jsonData, false);
-    curl_close($ch);
-    if ($status_code === 201) {
-        return true;
-    } else {
-        return false;
-    }
-}
-function updateExample($id, $jsonData)
-{
-    GLOBAL $url;
-    //The JSON data.
-    list($response, $status_code, $ch) = initPut($url . '/example.php?id=' . $id, $jsonData, false);
-
-    curl_close($ch);
-    if ($status_code === 200) {
-        return true;
-    } else {
-        return false;
-    }
-
-}
 function getAeroport() {
     GLOBAL $url;
-    list($response, $status_code, $ch) = initGet($url . '/aeroport.php', false, false);
+    list($response, $status_code, $ch) = initGet($url . '/aeroport.php', false, true);
     curl_close($ch);
     if ($status_code === 200) {
         return json_decode($response);
@@ -122,8 +95,7 @@ function getOneVoiture($voiture_id) {
 function deleteVoiture($voiture_id) {
     GLOBAL $url;
     //The JSON data.
-    list($response, $status_code, $ch) = initDelete($url . '/voiture.php?id=' . $voiture_id, false);
-    curl_close($ch);
+    list($response, $status_code, $ch) = initDelete($url . '/voiture.php?id=' . $voiture_id, true);
     curl_close($ch);
 
     if ($status_code === 200) {
@@ -135,7 +107,7 @@ function deleteVoiture($voiture_id) {
 function getVoitureFromUtilisateur($utilisateur_id) {
     GLOBAL $url;
     //The JSON data.
-    list($response, $status_code, $ch) = initGet($url . '/voiture.php?utilisateur_id=' . $utilisateur_id, false, false);
+    list($response, $status_code, $ch) = initGet($url . '/voiture.php?utilisateur_id=' . $utilisateur_id, false, true);
     curl_close($ch);
     if ($status_code === 200) {
         return json_decode($response);
@@ -180,7 +152,7 @@ function updateUserProfile($id, $jsonData)
 {
     GLOBAL $url;
     //The JSON data.
-    list($response, $status_code, $ch) = initPut($url . '/auth.php?id=' . $id, $jsonData, false);
+    list($response, $status_code, $ch) = initPut($url . '/auth.php?id=' . $id, $jsonData, true);
     curl_close($ch);
     if ($status_code === 200) {
         return true;
@@ -193,7 +165,7 @@ function updateUserProfile($id, $jsonData)
 function createReservation($jsonData) {
     GLOBAL $url;
     //The JSON data.
-    list($response, $status_code, $ch) = initPost($url . '/reservation.php', $jsonData, false);
+    list($response, $status_code, $ch) = initPost($url . '/reservation.php', $jsonData, true);
     curl_close($ch);
     if ($status_code === 201) {
         return true;
@@ -260,7 +232,7 @@ function getParkings() {
 function createAeroport($jsonData) {
     GLOBAL $url;
     //The JSON data.
-    list($response, $status_code, $ch) = initPost($url . '/aeroport.php', $jsonData, false);
+    list($response, $status_code, $ch) = initPost($url . '/aeroport.php', $jsonData, true);
     curl_close($ch);
     if ($status_code === 201) {
         return true;

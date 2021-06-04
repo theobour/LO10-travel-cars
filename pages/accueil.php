@@ -125,6 +125,7 @@ $pseudoadministrateur = "admin";
                         foreach ($r as $aeroport) {
                             echo("<option value=\"$aeroport->id\">$aeroport->nom</option>");
                         }
+
                         ?>
                     </select>
                 </div>
