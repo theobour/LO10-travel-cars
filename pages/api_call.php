@@ -243,7 +243,7 @@ function createAeroport($jsonData) {
 function createParking($jsonData) {
     GLOBAL $url;
     //The JSON data.
-    list($response, $status_code, $ch) = initPost($url . '/parking.php', $jsonData, false);
+    list($response, $status_code, $ch) = initPost($url . '/parking.php', $jsonData, true);
     curl_close($ch);
     if ($status_code === 201) {
         return true;
@@ -266,7 +266,7 @@ function createUser($jsonData) {
 function createVoiture($jsonData) {
     GLOBAL $url;
     //The JSON data.
-    list($response, $status_code, $ch) = initPost($url . '/voiture.php', $jsonData, false);
+    list($response, $status_code, $ch) = initPost($url . '/voiture.php', $jsonData, true);
     curl_close($ch);
     if ($status_code === 201) {
         return true;
