@@ -3,7 +3,8 @@
 // Démarrage de la session + connexion base de données
 
 session_start();
-require_once('./api_call.php');
+require_once('./api_call.php');;
+
 try {
     $bdd = new PDO('mysql:host=localhost;dbname=lo07;charset=utf8', 'root', 'root');
 } catch (Exception $e) {
@@ -82,11 +83,11 @@ try {
                                     font-weight: bold;
                                     text-decoration: none;
                                 }
-                                
+
                                 #footer_index {display: none;}
-                                
+
                                 #resultat_reservation {display: none;}
-                                
+
                                 body {
                                   background-image: url(../images/img4.jpg);
                                   background-repeat: no-repeat;
@@ -163,7 +164,7 @@ try {
                 echo("<p><strong><a href=accueil.php>Modifier les dates saisies</a></strong></p>");
 
                 echo("<style>
-                                                
+
                                                             #footer_connexion {display: block;}
                                                             #footer_connexion {
                                                                     width: 100%;
@@ -204,6 +205,8 @@ try {
 
         </div>
 
+        <?php printLocFromCity(getLocFromCity($oAuthToken, $arrayInputs)); ?>
+
     </div>
 
     <div class="row" id="footer_index">
@@ -219,4 +222,3 @@ try {
 </body>
 
 </html>
-

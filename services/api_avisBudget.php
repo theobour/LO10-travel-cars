@@ -165,7 +165,7 @@ function printLocFromCity($tableLocCity, $displayAllLoc) {
 	$numberLocFromCity = sizeof($tableLocCity);
 	$counter = 0;
 
-	echo "VILLE DE RECHERCHE: " .$tableLocCity[0]. "<br/><br/>";
+  echo "<div id=\"resultat_reservation\"> <h2>Les véhicules disponibles sur AVIS :</h2>";
 
 	for ($i=1 ; $i<$numberLocFromCity ; $i++) {
 
@@ -173,24 +173,24 @@ function printLocFromCity($tableLocCity, $displayAllLoc) {
 
 		if ($displayAllLoc == false) {
 
-			if ($counter < 5) {
-						echo "Marque locataire : " .$tableLocCity[$i][0]. "</br>";
-						echo "Code du véhicule : " .$tableLocCity[$i][1]. "</br>";
-						echo "Secteur du parking : " .$tableLocCity[$i][2]. "</br>";
-						echo "Disponibilités : " .$tableLocCity[$i][3]. "</br>";
-						echo "Adresse de stationnement : " .$tableLocCity[$i][4]. "</br>";
-						echo "Code postal : " .$tableLocCity[$i][5]. "</br>";
-						echo "Adresse de stationnement : " .$tableLocCity[$i][6]. "</br></br>";
+			if ($counter < 3) {
+            echo("<div id=liste_reservation>");
+						echo "<strong>Marque locataire : </strong>" .$tableLocCity[$i][0]. "</br>";
+						echo "<strong>Code du véhicule : </strong>" .$tableLocCity[$i][1]. "</br>";
+						echo "<strong>Secteur du parking : </strong>" .$tableLocCity[$i][2]. "</br>";
+						echo "<strong>Disponibilités : </strong>" .$tableLocCity[$i][3]. "</br>";
+						echo "<strong>Adresse de stationnement : </strong>" .$tableLocCity[$i][4]. "</br>";
+            echo("</div>");
 					}
 		} else {
 
-			echo "Marque locataire : " .$tableLocCity[$i][0]. "</br>";
-			echo "Code du véhicule : " .$tableLocCity[$i][1]. "</br>";
-			echo "Secteur du parking : " .$tableLocCity[$i][2]. "</br>";
-			echo "Disponibilités : " .$tableLocCity[$i][3]. "</br>";
-			echo "Adresse de stationnement : " .$tableLocCity[$i][4]. "</br>";
-			echo "Code postal : " .$tableLocCity[$i][5]. "</br>";
-			echo "Adresse de stationnement : " .$tableLocCity[$i][6]. "</br></br>";
+      echo("<div id=liste_reservation>");
+			echo "<strong>Marque locataire : </strong>" .$tableLocCity[$i][0]. "</br>";
+			echo "<strong>Code du véhicule : </strong>" .$tableLocCity[$i][1]. "</br>";
+			echo "<strong>Secteur du parking : </strong>" .$tableLocCity[$i][2]. "</br>";
+			echo "<strong>Disponibilités : </strong>" .$tableLocCity[$i][3]. "</br>";
+			echo "<strong>Adresse de stationnement : </strong>" .$tableLocCity[$i][4]. "</br>";
+      echo("</div>");
 		}
 
 
@@ -198,10 +198,12 @@ function printLocFromCity($tableLocCity, $displayAllLoc) {
 	}
 
 
-	if (($counter >= 5) && ($displayAllLoc == false)) {
-			echo "5 véhicule(s) affiché(s) sur les " .$counter. " trouvés.";
+	if (($counter >= 3) && ($displayAllLoc == false)) {
+			echo "3 véhicule(s) affiché(s) sur les " .$counter. " trouvés.";
+      echo("</div>");
 	} else {
 			echo $counter. " véhicules trouvés";
+      echo("</div>");
 	}
 
 }
@@ -212,11 +214,5 @@ $oAuthToken = getToken();
 $city = "Paris";
 $displayAllLoc = true;
 $arrayInputs = array("2021-05-30T00%3A00%3A00", "EWR", "2021-12-31T00%3A00%3A00", "EWR", "US");
-
-// ---------------- APPEL DES FONCTIONS ------------------------
-
-//printLocFromCity(getLocFromCity($oAuthToken, $city), $displayAllLoc);
-
-printLocFromInfos(getLocFromInfos($oAuthToken, $arrayInputs));
 
 ?>
