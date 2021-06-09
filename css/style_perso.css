@@ -961,3 +961,16 @@ h3 {
     font-weight: bold;
     font-family: 'Noto Sans TC', sans-serif;
     }
+
+
+#partie_map{
+    background-color: #2B0A40;
+    padding: 40px;
+    color: #F1C2DF;
+    margin: 0px;
+    opacity: 0.95;
+    }
+	
+#partie_map p{
+  color: #F1C2DF;
+}
