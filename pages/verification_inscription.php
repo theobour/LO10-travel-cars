@@ -28,7 +28,7 @@ catch (Exception $e)
         die('Erreur : ' . $e->getMessage());
 }
 
-                // Vérification que le pseudo est pas déjà utilisé
+// Vérification que le pseudo est pas déjà utilisé
 $creation = createUser(array(
     'prenom'=>$prenom,
     'nom'=>$nom,
