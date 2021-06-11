@@ -2,9 +2,10 @@
 
 // Démarrage de la session
 require_once('./api_call.php');
-session_start();
-
-$pseudo = $_SESSION['pseudo'];
+$url_to_redirect = "http://localhost:8890/project/LO10-travel-cars/pages";
+if (!isset($_SESSION['auth'])) {
+    header('Location: ' . $url_to_redirect . '/index.php');
+}
 // Défition du pseudo de l'administrateur du site.
 $pseudoadministrateur = "admin";
 

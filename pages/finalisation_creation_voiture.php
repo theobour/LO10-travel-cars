@@ -1,6 +1,9 @@
 <?php
-session_start();
 require_once('./api_call.php');
+$url_to_redirect = "http://localhost:8890/project/LO10-travel-cars/pages";
+if (!isset($_SESSION['auth'])) {
+    header('Location: ' . $url_to_redirect . '/index.php');
+}
 $creation = createVoiture(array(
     "type"=>$_POST['type'],
     "couleur"=>$_POST['couleur'],

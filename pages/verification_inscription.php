@@ -5,7 +5,6 @@ require_once('./api_call.php');
 
 // Démarrage de la session
 
-session_start();
 $url_to_redirect = "http://localhost:8890/project/LO10-travel-cars/pages";
 // Création des variables de session
 $mdp = $_POST["mdp"];

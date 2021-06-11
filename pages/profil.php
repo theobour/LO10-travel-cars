@@ -2,8 +2,12 @@
 
 // Démarrage de la session + connection à la BDD
 
-session_start();
+
 require_once('./api_call.php');
+$url_to_redirect = "http://localhost:8890/project/LO10-travel-cars/pages";
+if (!isset($_SESSION['auth'])) {
+    header('Location: ' . $url_to_redirect . '/index.php');
+}
 try {
     $bdd = new PDO('mysql:host=localhost;dbname=lo07;charset=utf8', 'root', 'root');
 } catch (Exception $e) {
