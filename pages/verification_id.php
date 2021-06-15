@@ -2,7 +2,7 @@
 
 // Démarrage session + connexion BDD
 require_once('./api_call.php');
-$url_to_redirect = "http://localhost:8890/project/LO10-travel-cars/pages";
+$url_to_redirect = "http://localhost:8888/project/LO10-travel-cars/pages";
 unset ($_SESSION['pseudo']);
 
 // Récupération du pseudo de l'utilisateur

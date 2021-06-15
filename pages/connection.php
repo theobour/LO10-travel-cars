@@ -65,7 +65,7 @@ session_start();
                 
                 <button type="submit" >Se connecter</button>
 				<br/><br/><p> Ou sinon connection via :</p>
-				<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+				<div class="g-signin2" data-onsuccess="onSignIn" data-onerror="onSignIn" data-theme="dark"></div>
             </form>
 			</center>
             
@@ -76,6 +76,10 @@ session_start();
         </div>
         
     </body>
-    
+    <script>
+        setTimeout(function () {
+            window.location = "http://localhost:8888/project/LO10-travel-cars/pages/verif_conn.php"
+        }, 4000)
+    </script>
 </html>
 

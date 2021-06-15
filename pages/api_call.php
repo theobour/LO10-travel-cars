@@ -1,6 +1,6 @@
 <?php
 include './service_api.php';
-$url = "http://localhost:8890/project/LO10-backend/api";
+$url = "http://localhost:8888/project/LO10-backend/api";
 $aero_api_key = "cf959a75a1mshc009859d88b3b2bp115f37jsnf4e5f8304eea";
 $aero_url = "https://aerodatabox.p.rapidapi.com";
 
