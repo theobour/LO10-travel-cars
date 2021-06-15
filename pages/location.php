@@ -3,7 +3,9 @@
 // Démarrage de la session + connexion base de données
 
 
+require_once('./services/api_avisBudget.php');
 require_once('./api_call.php');
+
 $url_to_redirect = "http://localhost:8890/project/LO10-travel-cars/pages";
 if (!isset($_SESSION['auth'])) {
     header('Location: ' . $url_to_redirect . '/index.php');
@@ -209,7 +211,11 @@ try {
 
         </div>
 
-        <?php printLocFromCity(getLocFromCity($oAuthToken, $arrayInputs)); ?>
+        <?php 
+
+        printLocFromCity(getLocFromCity($oAuthToken, $city)); 
+
+        ?>
 
     </div>
 
