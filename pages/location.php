@@ -4,6 +4,11 @@
 
 
 require_once('./services/api_avisBudget.php');
+
+$oAuthToken = getToken();
+$city = "Paris";
+$displayAllLoc = false;
+
 require_once('./api_call.php');
 
 $url_to_redirect = "http://localhost:8890/project/LO10-travel-cars/pages";
@@ -211,11 +216,7 @@ try {
 
         </div>
 
-        <?php 
-
-        printLocFromCity(getLocFromCity($oAuthToken, $city)); 
-
-        ?>
+        <?php printLocFromCity(getLocFromCity($oAuthToken, $city), $displayAllLoc) ?>
 
     </div>
 

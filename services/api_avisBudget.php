@@ -26,7 +26,6 @@ function getToken(){
 	{
 	    $json = json_decode($result);
 	    $authToken = $json->access_token;
-	    echo "Access token OK <hr>";
 
 	    return $authToken;
 
@@ -173,7 +172,7 @@ function printLocFromCity($tableLocCity, $displayAllLoc) {
 
 		if ($displayAllLoc == false) {
 
-			if ($counter < 3) {
+			if ($counter < 6) {
             echo("<div id=liste_reservation>");
 						echo "<strong>Marque locataire : </strong>" .$tableLocCity[$i][0]. "</br>";
 						echo "<strong>Code du véhicule : </strong>" .$tableLocCity[$i][1]. "</br>";
@@ -182,24 +181,13 @@ function printLocFromCity($tableLocCity, $displayAllLoc) {
 						echo "<strong>Adresse de stationnement : </strong>" .$tableLocCity[$i][4]. "</br>";
             echo("</div>");
 					}
-		} else {
-
-      echo("<div id=liste_reservation>");
-			echo "<strong>Marque locataire : </strong>" .$tableLocCity[$i][0]. "</br>";
-			echo "<strong>Code du véhicule : </strong>" .$tableLocCity[$i][1]. "</br>";
-			echo "<strong>Secteur du parking : </strong>" .$tableLocCity[$i][2]. "</br>";
-			echo "<strong>Disponibilités : </strong>" .$tableLocCity[$i][3]. "</br>";
-			echo "<strong>Adresse de stationnement : </strong>" .$tableLocCity[$i][4]. "</br>";
-      echo("</div>");
-		}
-
-
+		} 
 
 	}
 
 
-	if (($counter >= 3) && ($displayAllLoc == false)) {
-			echo "3 véhicule(s) affiché(s) sur les " .$counter. " trouvés.";
+	if (($counter < 6) && ($displayAllLoc == false)) {
+			echo "5 véhicule(s) affiché(s) sur les " .$counter. " trouvés.";
       echo("</div>");
 	} else {
 			echo $counter. " véhicules trouvés";
@@ -210,9 +198,6 @@ function printLocFromCity($tableLocCity, $displayAllLoc) {
 
 // ---------------- DEF DES VARIABLES ------------------------
 
-$oAuthToken = getToken();
-$city = "Paris";
-$displayAllLoc = true;
 $arrayInputs = array("2021-05-30T00%3A00%3A00", "EWR", "2021-12-31T00%3A00%3A00", "EWR", "US");
 
 ?>
