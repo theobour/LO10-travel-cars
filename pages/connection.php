@@ -15,7 +15,12 @@ session_start();
         <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="../css/style_perso.css?t=<?php echo time(); ?>" media="all" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet">
-        
+		<!-- connection via google -->
+		<meta name="google-signin-scope" content="profile email">
+		<meta name="google-signin-client_id" content="288668940272-g28dac5l6q3dbo7lep91tfuac86pjdlf.apps.googleusercontent.com">
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script src="onSignIn.js"></script>
+		<!-- -->
     </head>
     
     <body>
@@ -59,8 +64,10 @@ session_start();
                 <p>Tu n'as pas de compte ? <a href=inscription.php>Inscris-toi !</a></p>
                 
                 <button type="submit" >Se connecter</button>
-
-            </form></center>
+				<br/><br/><p> Ou sinon connection via :</p>
+				<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+            </form>
+			</center>
             
             <div class="row" id="footer_connexion">
                 <div class="col-sm-12"><a href="credit.php">Plus d'informations</a></div>
